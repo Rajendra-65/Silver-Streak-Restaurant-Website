@@ -15,50 +15,50 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  // Appetizers
+  // Dismus
   {
     id: "1",
-    name: "Crispy Spring Rolls",
+    name: "Ching Kao",
     description: "Golden-fried spring rolls filled with vegetables and shrimp. Served with sweet and sour sauce.",
-    price: 8.99,
-    category: "Appetizers",
+    price: 110,
+    category: "Dismus",
     image: "/spring-rolls.jpg",
     spicy: false,
   },
   {
     id: "2",
-    name: "Peking Duck Bites",
+    name: "Pan Fried Ching Kao",
     description: "Tender duck with crispy skin served with plum sauce and thin pancakes.",
-    price: 12.99,
+    price: 133,
     category: "Appetizers",
     image: "/peking-duck.jpg",
     spicy: false,
   },
   {
     id: "3",
-    name: "Sizzling Shrimp Toast",
+    name: "Spring Roll",
     description: "Shrimp paste on crispy toast, topped with sesame seeds. A signature starter.",
-    price: 9.99,
+    price: 152,
     category: "Appetizers",
     image: "/shrimp-toast.jpg",
     spicy: false,
   },
   {
     id: "4",
-    name: "Szechuan Chicken Wings",
+    name: "Dragon Roll",
     description: "Spicy wings coated in Szechuan sauce with numbing peppercorns. Bold and flavorful.",
-    price: 10.99,
+    price: 190,
     category: "Appetizers",
     image: "/chicken-wings.jpg",
     spicy: true,
   },
 
-  // Main Courses
+  // Soups
   {
     id: "5",
-    name: "Kung Pao Chicken",
+    name: "chicken & veg clear soup",
     description: "Diced chicken with roasted peanuts, bell peppers, and dried chilies in a tangy sauce.",
-    price: 14.99,
+    price: 110,
     category: "Main Courses",
     image: "/kung-pao-chicken.jpg",
     spicy: true,
@@ -157,6 +157,7 @@ const menuItems: MenuItem[] = [
     image: "/wonton-soup.jpg",
     spicy: false,
   },
+  
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
@@ -171,7 +172,7 @@ export default function MenuPage() {
     <>
       <main className="bg-neutral-950 text-foreground">
         {/* Hero Section */}
-        <section className="relative w-full h-80 bg-linear-to-br from-neutral-800 to-neutral-900 overflow-hidden">
+        <section className="relative w-full h-80 bg-linear-to-br from-neutral-800 to-neutral-900 overflow-hidden border-t border-t-white">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center z-10">
               <h1 className="text-5xl md:text-6xl font-bold text-text-balance text-accent mb-4">
@@ -185,7 +186,7 @@ export default function MenuPage() {
         </section>
 
         {/* Menu Content */}
-        <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto">
+        <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-t-white">
           {/* Category Filter */}
           <div className="mb-12">
             <div className="flex flex-wrap gap-3 justify-center">
