@@ -19,19 +19,19 @@ const menuItems: MenuItem[] = [
   {
     id: "1",
     name: "Ching Kao",
-    description: "Golden-fried spring rolls filled with vegetables and shrimp. Served with sweet and sour sauce.",
+    description: "Ching Kao (Momo) is a delicious Chinese-style steamed dumpling filled with finely chopped vegetables or meat, delicately seasoned with aromatic spices. Soft on the outside and juicy inside, it is served hot with a tangy, spicy chutney that perfectly enhances its flavor. A light yet satisfying appetizer, Ching Kao is loved for its fresh taste and comforting bite.",
     price: 110,
     category: "Dismus",
-    image: "/spring-rolls.jpg",
+    image: "/menuImages/Dismus/ching-kao.jpg",
     spicy: false,
   },
   {
     id: "2",
     name: "Pan Fried Ching Kao",
-    description: "Tender duck with crispy skin served with plum sauce and thin pancakes.",
+    description: "Pan-Fried Ching Kao (Momo) is a perfect blend of crispy and juicy textures. Lightly pan-seared until golden on the outside, these momos have a soft, flavorful filling inside, infused with aromatic Chinese spices. Served hot with a spicy, tangy chutney, they offer a rich, smoky taste and a satisfying crunch in every bite—an ideal choice for momo lovers who enjoy bold flavors.",
     price: 133,
-    category: "Appetizers",
-    image: "/peking-duck.jpg",
+    category: "Dismus",
+    image: "/menuImages/Dismus/pan-fried-ching-kao.jpg",
     spicy: false,
   },
   {
@@ -39,7 +39,7 @@ const menuItems: MenuItem[] = [
     name: "Spring Roll",
     description: "Shrimp paste on crispy toast, topped with sesame seeds. A signature starter.",
     price: 152,
-    category: "Appetizers",
+    category: "Dismus",
     image: "/shrimp-toast.jpg",
     spicy: false,
   },
@@ -48,7 +48,7 @@ const menuItems: MenuItem[] = [
     name: "Dragon Roll",
     description: "Spicy wings coated in Szechuan sauce with numbing peppercorns. Bold and flavorful.",
     price: 190,
-    category: "Appetizers",
+    category: "Dismus",
     image: "/chicken-wings.jpg",
     spicy: true,
   },
@@ -56,108 +56,115 @@ const menuItems: MenuItem[] = [
   // Soups
   {
     id: "5",
-    name: "chicken & veg clear soup",
-    description: "Diced chicken with roasted peanuts, bell peppers, and dried chilies in a tangy sauce.",
+    name: "chicken soup",
+    description: "Chicken Soup is a warm and comforting classic made with tender chicken pieces simmered in a flavorful broth. Infused with aromatic herbs, mild spices, and fresh vegetables, this light yet nourishing soup delivers a soothing taste with every sip. Perfect as a starter, it refreshes the palate while preparing you for a wholesome meal.",
     price: 110,
-    category: "Main Courses",
-    image: "/kung-pao-chicken.jpg",
+    category: "Soups",
+    image: "/menuImages/Soups/chicken-soup.jpg",
     spicy: true,
   },
   {
     id: "6",
-    name: "Mapo Tofu",
-    description: "Silky tofu in a fiery Szechuan sauce with ground pork, served over steamed rice.",
-    price: 13.99,
-    category: "Main Courses",
-    image: "/mapo-tofu.jpg",
+    name: "veg soup",
+    description: "Veg Soup is a light and healthy blend of fresh seasonal vegetables gently simmered in a flavorful, aromatic broth. Packed with natural goodness, herbs, and mild spices, it offers a refreshing taste and comforting warmth. Perfect as a starter, this soup is both nourishing and satisfying, making it a great choice for any meal.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/veg-soup.jpg",
     spicy: true,
   },
   {
     id: "7",
-    name: "Beef with Broccoli",
-    description: "Tender sliced beef stir-fried with fresh broccoli in a savory garlic sauce.",
-    price: 15.99,
-    category: "Main Courses",
-    image: "/beef-broccoli.jpg",
-    spicy: false,
+    name: "Spicy Corn Soup",
+    description: "Spicy Corn Soup is a hearty and flavorful soup made with sweet corn kernels simmered in a rich, thickened broth. Enhanced with fresh vegetables, aromatic spices, and a hint of chili heat, it delivers a perfect balance of sweetness and spice. Warm, comforting, and satisfying, this soup is an ideal starter for those who enjoy bold flavors.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/sweet-corn.jpg",
+    spicy: true,
   },
   {
     id: "8",
-    name: "Sweet & Sour Fish",
-    description: "Whole fish or fillet with vegetables in a sweet and tangy sauce. A classic favorite.",
-    price: 16.99,
-    category: "Main Courses",
-    image: "/sweet-sour-fish.jpg",
+    name: "Burnt Garlic Soup",
+    description: "Burnt Garlic Soup is a bold and aromatic soup known for its deep, smoky flavor. Made by sautéing garlic until perfectly golden and releasing its rich aroma, it is simmered in a savory broth with fresh vegetables and subtle spices. Light yet intensely flavorful, this soup is a perfect starter for garlic lovers who enjoy a warm, comforting kick.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/Burnt-garlic-soup.jpg",
     spicy: false,
   },
   {
     id: "9",
-    name: "Singapore Mei Fun",
-    description: "Thin rice noodles with shrimp, chicken, and vegetables in a curry-flavored sauce.",
-    price: 13.99,
-    category: "Main Courses",
-    image: "/mei-fun.jpg",
-    spicy: true,
+    name: "Lemon Coriander Soup",
+    description: "Lemon Coriander Soup is a light, refreshing soup made with clear vegetable broth infused with fresh coriander leaves and a hint of tangy lemon. Delicately seasoned with mild spices and herbs, it offers a soothing aroma and a clean, zesty flavor. Perfect as a starter, this soup is both comforting and rejuvenating, ideal for any time of the day.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/lemon-coriander-soup.jpg",
+    spicy: false,
   },
   {
     id: "10",
-    name: "Chow Mein",
-    description: "Crispy or soft noodles with your choice of protein and fresh vegetables.",
-    price: 12.99,
-    category: "Main Courses",
-    image: "/chow-mein.jpg",
-    spicy: false,
+    name: "Hot & Sour Soup",
+    description: "Hot & Sour Soup is a classic Chinese soup known for its bold balance of spicy heat and tangy sourness. Prepared with a rich, flavorful broth, fresh vegetables, and aromatic seasonings, it delivers a warming kick with every spoonful. Perfectly comforting yet invigorating, this soup is an ideal starter for those who love strong, well-balanced flavors.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/sweet-&-sour.jpg",
+    spicy: true,
   },
-
-  // Seafood
   {
     id: "11",
-    name: "Salt & Pepper Squid",
-    description: "Lightly battered squid with crispy salt and pepper seasoning. Addictively delicious.",
-    price: 14.99,
-    category: "Seafood",
-    image: "/salt-pepper-squid.jpg",
+    name: "Sweet Corn Soup",
+    description: "Sweet Corn Soup is a comforting and mildly sweet soup made with juicy corn kernels simmered in a smooth, flavorful broth. Enhanced with finely chopped vegetables and gentle seasoning, it offers a perfect balance of sweetness and warmth. Light yet satisfying, this classic soup is an ideal starter for all age groups.",
+    price: 110,
+    category: "Soups",
+    image: "/menuImages/Soups/sweet-corn-soup.jpg",
     spicy: false,
   },
   {
     id: "12",
-    name: "Shrimp with Garlic Sauce",
-    description: "Succulent shrimp in a rich garlic and black bean sauce with peppers.",
-    price: 15.99,
-    category: "Seafood",
-    image: "/garlic-shrimp.jpg",
-    spicy: true,
+    name: "Tom Yum Soup",
+    description: "Tom Yum Soup is a classic Thai-style soup known for its bold, aromatic flavors. Made with a fragrant broth infused with lemongrass, kaffir lime leaves, galangal, and chili, it delivers a perfect balance of spicy, sour, and savory notes. Light yet intensely flavorful, this soup is refreshing and comforting, making it an ideal starter for lovers of zesty cuisine",
+    price: 119,
+    category: "Soups",
+    image: "/menuImages/Soups/tom-Yum-Soup.jpg",
+    spicy: false,
   },
   {
     id: "13",
-    name: "Lobster Cantonese Style",
-    description: "Fresh lobster stir-fried with ginger, garlic, and scallions. Premium indulgence.",
-    price: 24.99,
-    category: "Seafood",
-    image: "/lobster-cantonese.jpg",
-    spicy: false,
-  },
-
-  // Soups
-  {
-    id: "14",
-    name: "Hot & Sour Soup",
-    description: "Tangy and spicy broth with tofu, mushrooms, and bamboo shoots.",
-    price: 6.99,
+    name: "Lung Fung Soup",
+    description: "Lung Fung Soup is a rich and flavorful Chinese-style soup known for its smooth texture and comforting taste. Prepared with a thick, savory broth infused with aromatic spices, fresh vegetables, and delicate seasonings, it offers a mild yet deeply satisfying flavor. Warm and nourishing, this classic soup is a perfect starter for those who enjoy traditional Chinese comfort food.",
+    price: 110,
     category: "Soups",
-    image: "/hot-sour-soup.jpg",
-    spicy: true,
+    image: "/menuImages/Soups/lung-fung-soup.jpg",
+    spicy: false,
   },
   {
     id: "15",
-    name: "Wonton Soup",
-    description: "Delicate wontons filled with shrimp and pork in a light chicken broth.",
-    price: 6.99,
+    name: "Tomato Soup",
+    description: "Tomato Soup is a classic, comforting soup made from ripe tomatoes simmered into a smooth, rich blend. Gently seasoned with herbs and mild spices, it delivers a perfect balance of natural sweetness and tanginess. Warm, light, and flavorful, this timeless soup is an ideal starter or a comforting choice on its own.",
+    price: 119,
     category: "Soups",
-    image: "/wonton-soup.jpg",
+    image: "/menuImages/Soups/Tomato-Soup.jpg",
     spicy: false,
   },
-  
+  {
+    id: "16",
+    name: "Chicken Noodles Soup",
+    description: "Chicken Noodles Soup is a hearty and comforting soup made with tender chicken pieces, soft noodles, and fresh vegetables simmered in a flavorful, aromatic broth. Lightly seasoned with herbs and spices, it offers a perfect balance of warmth and nourishment. This classic soup is ideal as a starter or a wholesome meal on its own.",
+    price: 143,
+    category: "Soups",
+    image: "/menuImages/Soups/chicken-noodles-soup.jpg",
+    spicy: false,
+  },
+  {
+    id: "17",
+    name: "Manchow Soup (our Speciality)",
+    description: "Manchow Soup is a popular Indo-Chinese soup known for its bold, spicy flavors and rich texture. Made with finely chopped vegetables or chicken simmered in a savory broth, it is seasoned with garlic, soy, and aromatic spices. Topped with crispy fried noodles, this soup offers a perfect balance of heat, crunch, and comfort—making it a favorite starter for those who enjoy strong, flavorful dishes.",
+    price: 133,
+    category: "Soups",
+    image: "/menuImages/Soups/manchow-soup.jpg",
+    spicy: false,
+  },
+
+  // VEG Starter 
+
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
@@ -218,8 +225,9 @@ export default function MenuPage() {
                     src={item.image || "/placeholder.svg"}
                     alt={item.name}
                     fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="bg-cover group-hover:scale-110 transition-transform duration-300"
                   />
+                  
                   {item.spicy && (
                     <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
                       🌶️ Spicy
@@ -230,7 +238,7 @@ export default function MenuPage() {
                   <h3 className="text-xl font-bold mb-2 text-accent">{item.name}</h3>
                   <p className="text-accent text-sm mb-4 leading-relaxed">{item.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-accent">${item.price.toFixed(2)}</span>
+                    <span className="text-2xl font-bold text-accent">₹{item.price.toFixed(2)}</span>
                     <button className="bg-yellow-400 text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
                       order Now
                     </button>
