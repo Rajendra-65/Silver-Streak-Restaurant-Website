@@ -16,6 +16,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   // Dismus
+  // last two have to up to date
   {
     id: "1",
     name: "Ching Kao",
@@ -317,11 +318,502 @@ const menuItems: MenuItem[] = [
     category: "Veg-Starter",
     image: "/menuImages/Veg-Starter/masala-steam-corn.jpg",
     spicy: false,
-  }
+  },
 
   // NON-veg-starter
 
+  {
+    id: "35",
+    name: "Crispy Szechuan Chicken",
+    description:
+      "Crispy chicken pieces coated in a bold Szechuan spice blend with numbing peppercorns and dried chilies.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/crispy-szechuan-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "36",
+    name: "Chicken Tai-Pai",
+    description: "Tender chicken in a special Tai-Pai sauce with aromatic spices and a perfect balance of flavors.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chicken-tai-pai.jpg",
+    spicy: false,
+  },
+  {
+    id: "37",
+    name: "Chilly Chicken Dry",
+    description: "Crispy chicken pieces tossed with fresh chilies, bell peppers, and spicy Indian-Chinese spices.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chilly-chicken-dry.jpg",
+    spicy: true,
+  },
+  {
+    id: "38",
+    name: "Roast Mongolian Chicken",
+    description: "Tender chicken roasted with Mongolian spices, topped with fresh scallions and sesame seeds.",
+    price: 267,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/roast-mongolian-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "39",
+    name: "Chicken Wings In Red Wine",
+    description: "Succulent chicken wings braised in aromatic red wine sauce with ginger, garlic, and spices.",
+    price: 205,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chicken-wings-red-wine.jpg",
+    spicy: false,
+  },
+  {
+    id: "40",
+    name: "Drum of Heaven Hong Kong Style",
+    description: "Marinated chicken drumsticks with a crispy exterior and tender, juicy interior. A Hong Kong classic.",
+    price: 205,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/drum-heaven-hong-kong.jpg",
+    spicy: false,
+  },
+  {
+    id: "41",
+    name: "Chicken Drumstick In Garlic Pepper",
+    description: "Crispy chicken drumsticks coated in a fragrant garlic and black pepper seasoning.",
+    price: 205,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chicken-drumstick-garlic-pepper.jpg",
+    spicy: true,
+  },
+  {
+    id: "42",
+    name: "Tai Chin Chicken",
+    description: "Premium chicken prepared in authentic Tai Chin style with a perfect blend of traditional spices.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/tai-chin-chicken.jpg",
+    spicy: false,
+  },
+  {
+    id: "43",
+    name: "Crispy Chicken Hong Kong Style",
+    description: "Golden-fried chicken with a crispy exterior and succulent meat, served Hong Kong style.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/crispy-chicken-hong-kong.jpg",
+    spicy: false,
+  },
+  {
+    id: "44",
+    name: "Chicken Tai-pan",
+    description: "Tender chicken in a premium Tai-pan sauce with aromatic herbs and authentic Chinese flavors.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chicken-tai-pan.jpg",
+    spicy: false,
+  },
+  {
+    id: "45",
+    name: "Slice Chicken Pepper Salt",
+    description: "Sliced chicken breast seasoned with crispy salt and pepper, offering a simple yet delicious taste.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/slice-chicken-pepper-salt.jpg",
+    spicy: true,
+  },
+  {
+    id: "46",
+    name: "Dragon Chicken",
+    description:
+      "Exquisite chicken dish prepared with aromatic spices, fresh herbs, and a signature dragon-inspired sauce.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/dragon-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "47",
+    name: "Chicken Salt & Pepper",
+    description:
+      "Crispy chicken pieces seasoned with aromatic salt and freshly ground black pepper, lightly fried to perfection.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/chicken-salt-pepper.jpg",
+    spicy: true,
+  },
+  {
+    id: "48",
+    name: "Sweet & Spicy Crispy Chicken",
+    description:
+      "Golden-fried chicken coated in a delightful balance of sweet and spicy sauce with a perfectly crispy exterior.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/sweet-spicy-crispy-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "49",
+    name: "Lat Mei Kai",
+    description:
+      "Traditional Cantonese-style chicken with crispy skin, tender meat, and aromatic seasoning that melts in your mouth.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/lat-mei-kai.jpg",
+    spicy: false,
+  },
+  {
+    id: "50",
+    name: "Crispy Chilly Honey Chicken",
+    description:
+      "Crispy fried chicken glazed with sweet honey and spicy chili sauce, creating a perfect sweet and hot balance.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/crispy-chilly-honey-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "51",
+    name: "Five Spice Chicken",
+    description:
+      "Aromatic chicken infused with the classic five spice blend of star anise, cloves, cinnamon, Szechuan pepper, and fennel.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/five-spice-chicken.jpg",
+    spicy: true,
+  },
+  {
+    id: "52",
+    name: "Bar B Q Chicken",
+    description: "Succulent barbecue chicken with a smoky flavor, glazed with a tangy and savory BBQ sauce.",
+    price: 171,
+    category: "Non-Veg-Starter",
+    image: "/menuImages/Non-Veg-Starter/bbq-chicken.jpg",
+    spicy: false,
+  },
+
+  // Sea-Food
+
+  {
+    id: "53",
+    name: "Five Spice Prawns",
+    description:
+      "Succulent prawns infused with the classic five spice blend of star anise, cloves, cinnamon, Szechuan pepper, and fennel.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/five-spice-prawns.jpg",
+    spicy: false,
+  },
+  {
+    id: "54",
+    name: "Chili Honey Prawn",
+    description:
+      "Succulent prawns glazed with sweet honey and fiery chili sauce, creating a perfect balance of heat and sweetness.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/chili-honey-prawn.jpg",
+    spicy: true,
+  },
+  {
+    id: "55",
+    name: "Prawn Salt & Pepper",
+    description:
+      "Crispy prawns seasoned with aromatic salt and freshly ground black pepper, lightly fried to perfection.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/prawn-salt-pepper.jpg",
+    spicy: true,
+  },
+  {
+    id: "56",
+    name: "Pan Fried Szechuan Prawn",
+    description:
+      "Pan-fried prawns coated in a bold Szechuan spice blend with numbing peppercorns, fresh chilies, and aromatic garlic.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/pan-fried-szechuan-prawn.jpg",
+    spicy: true,
+  },
+  {
+    id: "57",
+    name: "Burn & Chilly Plum Sauce Prawn",
+    description:
+      "Charred prawns in a tangy plum sauce with fiery chilies, creating an explosion of complex flavors on the palate.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/burn-chilly-plum-sauce-prawn.jpg",
+    spicy: true,
+  },
+  {
+    id: "58",
+    name: "Fish Tai-pan",
+    description:
+      "Premium fish fillet prepared in authentic Tai-pan style with aromatic spices and a perfect blend of traditional flavors.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/fish-tai-pan.jpg",
+    spicy: false,
+  },
+  {
+    id: "59",
+    name: "Fish Salt & Pepper",
+    description:
+      "Crispy fish fillet seasoned with aromatic salt and freshly ground black pepper, lightly fried until golden and crispy.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/fish-salt-pepper.jpg",
+    spicy: true,
+  },
+  {
+    id: "60",
+    name: "Crispy Fish Garlic Pepper",
+    description:
+      "Golden-fried fish coated in a fragrant garlic and black pepper seasoning, creating a savory and aromatic delight.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/crispy-fish-garlic-pepper.jpg",
+    spicy: true,
+  },
+  {
+    id: "61",
+    name: "Crispy Fish Sweet Chilly",
+    description:
+      "Golden-fried fish glazed with sweet and spicy chili sauce, offering a perfect balance of heat and sweetness.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/crispy-fish-sweet-chilly.jpg",
+    spicy: true,
+  },
+  {
+    id: "62",
+    name: "Mustard Chilly Fish",
+    description:
+      "Tender fish fillet in a bold mustard and chili sauce with fresh herbs, delivering a unique tangy and spicy kick.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/mustard-chilly-fish.jpg",
+    spicy: true,
+  },
+  {
+    id: "63",
+    name: "Crispy Szechuan Fish Dry",
+    description:
+      "Crispy fish pieces coated in a bold Szechuan spice blend with numbing peppercorns and dried chilies, utterly addictive.",
+    price: 276,
+    category: "Sea-Food-Starter",
+    image: "/menuImages/Sea-Food-Starter/crispy-szechuan-fish-dry.jpg",
+    spicy: true,
+  },
+
+  // VEGETARIAN
+
+  {
+    id: "64",
+    name: "Paneer Manchurian",
+    description:
+      "Crispy paneer cubes tossed in a tangy and spicy Manchurian sauce with bell peppers and onions, delivering authentic Indo-Chinese flavors.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/paneer-manchurian.jpg",
+    spicy: true,
+  },
+  {
+    id: "65",
+    name: "Chilly Paneer",
+    description:
+      "Tender paneer cubes stir-fried with fresh green and red chilies, onions, and aromatic spices for a fiery kick.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/chilly-paneer.jpg",
+    spicy: true,
+  },
+  {
+    id: "66",
+    name: "Szechuan Paneer",
+    description:
+      "Succulent paneer coated in a bold Szechuan spice blend with numbing peppercorns, fresh chilies, and aromatic garlic.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/szechuan-paneer.jpg",
+    spicy: true,
+  },
+  {
+    id: "67",
+    name: "Babycorn & Mushroom Hong Kong",
+    description:
+      "Fresh baby corn and tender mushrooms stir-fried in a light Hong Kong-style sauce with aromatic spices and sesame oil.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/babycorn-mushroom-hong-kong.jpg",
+    spicy: false,
+  },
+  {
+    id: "68",
+    name: "Devil's Veg",
+    description:
+      "A spicy medley of mixed vegetables in a fiery chili and garlic sauce with a perfect balance of heat and flavor.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/devils-veg.jpg",
+    spicy: true,
+  },
+  {
+    id: "69",
+    name: "Mixed Veg In Chinese Parsley",
+    description:
+      "Fresh mixed vegetables including broccoli, carrots, and bell peppers tossed with fragrant Chinese parsley and light sauce.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/mixed-veg-chinese-parsley.jpg",
+    spicy: false,
+  },
+  {
+    id: "70",
+    name: "Mixed In Bar B Q Sauce",
+    description: "Mixed vegetables glazed in a tangy and smoky barbecue sauce with a perfect caramelized finish.",
+    price: 167,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/mixed-bbq-sauce.jpg",
+    spicy: false,
+  },
+  {
+    id: "71",
+    name: "Exotic Veg Thai Curry (Red/Green)",
+    description:
+      "A vibrant blend of exotic vegetables in a creamy and aromatic Thai curry sauce, available in red or green variety.",
+    price: 181,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/exotic-veg-thai-curry.jpg",
+    spicy: true,
+  },
+  {
+    id: "72",
+    name: "Szechuan Mushroom",
+    description:
+      "Tender mushrooms coated in a bold Szechuan spice blend with numbing peppercorns, dried chilies, and aromatic garlic.",
+    price: 171,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/szechuan-mushroom.jpg",
+    spicy: true,
+  },
+  {
+    id: "73",
+    name: "Tsing Hoi Potato",
+    description:
+      "Crispy potato cubes stir-fried with fresh vegetables and aromatic herbs in a traditional Tsing Hoi style sauce.",
+    price: 171,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/tsing-hoi-potato.jpg",
+    spicy: false,
+  },
+  {
+    id: "74",
+    name: "Gobi Manchurian",
+    description:
+      "Crispy cauliflower florets tossed in a tangy and spicy Manchurian sauce with bell peppers and onions, a vegetarian favorite.",
+    price: 171,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/gobi-manchurian.jpg",
+    spicy: true,
+  },
+  {
+    id: "75",
+    name: "Veg Manchurian",
+    description:
+      "Mixed vegetables in a delicious Manchurian sauce with a perfect blend of tangy, spicy, and savory flavors.",
+    price: 171,
+    category: "Vegetarian",
+    image: "/menuImages/Vegetarian/veg-manchurian.jpg",
+    spicy: true,
+  },
+
+  // Vegetable
+
+  {
+    id: "76",
+    name: "Mix Veg Honey Lemon Sauce",
+    description:
+      "A delightful combination of fresh seasonal vegetables tossed in a sweet honey and tangy lemon sauce, perfectly balanced flavors.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/mix-veg-honey-lemon-sauce.jpg",
+    spicy: false,
+  },
+  {
+    id: "77",
+    name: "Chilli Potato",
+    description:
+      "Crispy potato cubes stir-fried with green chilies, bell peppers, and onions in a spicy chili-garlic sauce.",
+    price: 162,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/chilli-potato.jpg",
+    spicy: true,
+  },
+  {
+    id: "78",
+    name: "Hunan Veg",
+    description:
+      "Mixed vegetables prepared in the bold and spicy Hunan style with dried chilies, garlic, and a signature savory sauce.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/hunan-veg.jpg",
+    spicy: true,
+  },
+  {
+    id: "79",
+    name: "Tsing Hoi American Corn & Potato",
+    description:
+      "Sweet corn kernels and tender potatoes tossed together in a light, savory sauce with a perfect blend of textures.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/tsing-hoi-american-corn-potato.jpg",
+    spicy: false,
+  },
+  {
+    id: "80",
+    name: "Veg Dumpling Chilly Soya",
+    description:
+      "Steamed vegetable dumplings served with a fiery chilly soya sauce, combining soft, savory, and spicy notes.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/veg-dumpling-chilly-soya.jpg",
+    spicy: true,
+  },
+  {
+    id: "81",
+    name: "Babycorn Mushroom Malak Oil",
+    description:
+      "Tender babycorn and fresh mushrooms cooked in fragrant malak oil with aromatic spices for a unique flavor profile.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/babycorn-mushroom-malak-oil.jpg",
+    spicy: false,
+  },
+  {
+    id: "82",
+    name: "Three Treasure Veg",
+    description:
+      "A premium mix of three special vegetables prepared in a rich, savory sauce with aromatic spices and herbs.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/three-treasure-veg.jpg",
+    spicy: false,
+  },
+  {
+    id: "83",
+    name: "Mushroom Manchurian",
+    description:
+      "Tender mushroom pieces tossed in a tangy and spicy Manchurian sauce with vegetables, a delicious meat-free option.",
+    price: 171,
+    category: "Vegetable",
+    image: "/menuImages/Vegetable/mushroom-manchurian.jpg",
+    spicy: true,
+  },
+
+  // Chicken
+
   
+
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
