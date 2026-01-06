@@ -38,10 +38,10 @@ const menuItems: MenuItem[] = [
   {
     id: "3",
     name: "Spring Roll",
-    description: "Shrimp paste on crispy toast, topped with sesame seeds. A signature starter.",
+    description: "Spring Roll is a classic appetizer that delivers the perfect balance of crispiness and flavor. Wrapped in a thin pastry and fried until golden and crunchy, each roll is filled with finely chopped vegetables and aromatic seasonings. Served hot with a sweet and spicy dipping sauce, it offers a light yet satisfying bite with a delightful crunch—an ideal starter for those who enjoy fresh textures and bold  flavors.",
     price: 152,
     category: "Dismus",
-    image: "/shrimp-toast.jpg",
+    image: "/menuImages/Dismus/spring-roll.jpg",
     spicy: false,
   },
   {
@@ -50,7 +50,7 @@ const menuItems: MenuItem[] = [
     description: "Spicy wings coated in Szechuan sauce with numbing peppercorns. Bold and flavorful.",
     price: 190,
     category: "Dismus",
-    image: "/chicken-wings.jpg",
+    image: "/menuImages/Dismus/dragon-roll.jpg",
     spicy: true,
   },
 
@@ -148,16 +148,16 @@ const menuItems: MenuItem[] = [
   {
     id: "16",
     name: "Chicken Noodles Soup",
-    description: "Chicken Noodles Soup is a hearty and comforting soup made with tender chicken pieces, soft noodles, and fresh vegetables simmered in a flavorful, aromatic broth. Lightly seasoned with herbs and spices, it offers a perfect balance of warmth and nourishment. This classic soup is ideal as a starter or a wholesome meal on its own.",
+    description: "Chicken Noodles Soup is a hearty and comforting soup made with tender chicken pieces, soft Noodles, and fresh vegetables simmered in a flavorful, aromatic broth. Lightly seasoned with herbs and spices, it offers a perfect balance of warmth and nourishment. This classic soup is ideal as a starter or a wholesome meal on its own.",
     price: 143,
     category: "Soups",
-    image: "/menuImages/Soups/chicken-noodles-soup.jpg",
+    image: "/menuImages/Soups/chicken-Noodles-soup.jpg",
     spicy: false,
   },
   {
     id: "17",
     name: "Manchow Soup (our Speciality)",
-    description: "Manchow Soup is a popular Indo-Chinese soup known for its bold, spicy flavors and rich texture. Made with finely chopped vegetables or chicken simmered in a savory broth, it is seasoned with garlic, soy, and aromatic spices. Topped with crispy fried noodles, this soup offers a perfect balance of heat, crunch, and comfort—making it a favorite starter for those who enjoy strong, flavorful dishes.",
+    description: "Manchow Soup is a popular Indo-Chinese soup known for its bold, spicy flavors and rich texture. Made with finely chopped vegetables or chicken simmered in a savory broth, it is seasoned with garlic, soy, and aromatic spices. Topped with crispy fried Noodles, this soup offers a perfect balance of heat, crunch, and comfort—making it a favorite starter for those who enjoy strong, flavorful dishes.",
     price: 133,
     category: "Soups",
     image: "/menuImages/Soups/manchow-soup.jpg",
@@ -1090,102 +1090,102 @@ const menuItems: MenuItem[] = [
   // Noodles
 
   {
-    id: "hakka-noodles",
+    id: "hakka-Noodles",
     name: "Hakka Noodles",
-    description: "Classic stir-fried noodles tossed with vegetables and soy-based seasoning in Indo-Chinese style.",
+    description: "Classic stir-fried Noodles tossed with vegetables and soy-based seasoning in Indo-Chinese style.",
     price: 102,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/hakka-Noodles.jpg",
     spicy: false
   },
   {
-    id: "chilly-garlic-noodles",
+    id: "chilly-garlic-Noodles",
     name: "Chilly Garlic Noodles",
     description: "Noodles stir-fried with garlic, dry red chillies, and spicy sauces for a bold kick.",
     price: 112,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/chilly-garlic-noodles.jpg",
     spicy: true
   },
   {
-    id: "e-fu-noodles",
+    id: "e-fu-Noodles",
     name: "E Fu Noodles",
-    description: "Soft wheat noodles cooked in a light, savory sauce with vegetables and aromatic seasoning.",
+    description: "Soft wheat Noodles cooked in a light, savory sauce with vegetables and aromatic seasoning.",
     price: 122,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/e-fu-noodles.jpg",
     spicy: false
   },
   {
-    id: "mee-fung-noodles",
+    id: "mee-fung-Noodles",
     name: "Mee Fung Noodles",
-    description: "Thin rice vermicelli noodles stir-fried with vegetables and mild Asian sauces.",
+    description: "Thin rice vermicelli Noodles stir-fried with vegetables and mild Asian sauces.",
     price: 144,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/mee-fung-noodles.jpg",
     spicy: false
   },
   {
-    id: "jai-thai-noodles",
+    id: "jai-thai-Noodles",
     name: "Jai Thai Noodles",
-    description: "Thai-style noodles cooked with vegetables in a mildly spicy and aromatic sauce.",
+    description: "Thai-style Noodles cooked with vegetables in a mildly spicy and aromatic sauce.",
     price: 144,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/jai-thai-noodles.jpg",
     spicy: true
   },
   {
-    id: "hong-kong-noodles",
+    id: "hong-kong-Noodles",
     name: "Hong Kong Noodles",
-    description: "Thin noodles stir-fried with vegetables in a light, subtly seasoned Hong Kong-style sauce.",
+    description: "Thin Noodles stir-fried with vegetables in a light, subtly seasoned Hong Kong-style sauce.",
     price: 120,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/hong-kong-noodles.jpg",
     spicy: false
   },
   {
-    id: "singapore-noodles",
+    id: "singapore-Noodles",
     name: "Singapore Noodles",
-    description: "Rice noodles tossed with vegetables, curry seasoning, and aromatic spices.",
+    description: "Rice Noodles tossed with vegetables, curry seasoning, and aromatic spices.",
     price: 120,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/singapore-noodles.jpg",
     spicy: true
   },
   {
-    id: "cantonese-noodles",
+    id: "cantonese-Noodles",
     name: "Cantonese Noodles",
     description: "Noodles cooked in a rich Cantonese-style sauce with vegetables and balanced flavors.",
     price: 156,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/cantonese-noodles.jpg",
     spicy: false
   },
   {
-    id: "pan-fried-noodles",
+    id: "pan-fried-Noodles",
     name: "Pan Fried Noodles",
-    description: "Crispy pan-fried noodles topped with stir-fried vegetables in savory gravy.",
+    description: "Crispy pan-fried Noodles topped with stir-fried vegetables in savory gravy.",
     price: 156,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/pan-fried-noodles.jpg",
     spicy: false
   },
   {
     id: "american-chopsuey",
     name: "American Chopsuey",
-    description: "Crispy fried noodles served with sweet and tangy vegetable gravy.",
+    description: "Crispy fried Noodles served with sweet and tangy vegetable gravy.",
     price: 156,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/american-chopusy.jpg",
     spicy: false
   },
   {
     id: "chinese-chopsuey",
     name: "Chinese Chopsuey",
-    description: "Crispy noodles topped with classic Chinese-style vegetable sauce.",
+    description: "Crispy Noodles topped with classic Chinese-style vegetable sauce.",
     price: 156,
-    category: "noodles",
-    image: "",
+    category: "Noodles",
+    image: "/menuImages/Noodles/chinese-chopusy.jpg",
     spicy: false
   },
 
@@ -1196,8 +1196,8 @@ const menuItems: MenuItem[] = [
     name: "Fried Rice",
     description: "Steamed rice stir-fried with vegetables and light soy seasoning.",
     price: 118,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/fried-rice.jpg",
     spicy: false
   },
   {
@@ -1205,8 +1205,8 @@ const menuItems: MenuItem[] = [
     name: "Egg Wrap Fried Rice",
     description: "Flavorful fried rice wrapped in a thin omelette and lightly seasoned.",
     price: 152,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/egg-wrap-fried-rice.jpg",
     spicy: false
   },
   {
@@ -1214,8 +1214,8 @@ const menuItems: MenuItem[] = [
     name: "Szechuan Fried Rice",
     description: "Spicy fried rice tossed with Szechuan sauce and bold chilli flavors.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/szechuan-rice.jpg",
     spicy: true
   },
   {
@@ -1223,8 +1223,8 @@ const menuItems: MenuItem[] = [
     name: "Burnt Garlic Rice",
     description: "Rice stir-fried with aromatic burnt garlic and light seasoning.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/burnt-garlic-fried-rice.jpg",
     spicy: false
   },
   {
@@ -1232,8 +1232,8 @@ const menuItems: MenuItem[] = [
     name: "Singapore Rice",
     description: "Rice cooked with curry spices, vegetables, and aromatic seasoning.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/singapore-rice.jpg",
     spicy: true
   },
   {
@@ -1241,8 +1241,8 @@ const menuItems: MenuItem[] = [
     name: "Oyster Fried Rice",
     description: "Fried rice tossed with oyster sauce for a rich umami flavor.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/oyster-fried-rice.jpg",
     spicy: false
   },
   {
@@ -1250,8 +1250,8 @@ const menuItems: MenuItem[] = [
     name: "Tripal Szechuan Rice",
     description: "Rice cooked with triple Szechuan seasoning for extra heat and bold taste.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/tripal-szechuan-rice.jpg",
     spicy: true
   },
   {
@@ -1259,8 +1259,8 @@ const menuItems: MenuItem[] = [
     name: "Malak Fried Rice",
     description: "Mildly spiced fried rice prepared in a house-style Malak seasoning.",
     price: 120,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/malak-fried-rice.jpg",
     spicy: false
   },
   {
@@ -1268,8 +1268,8 @@ const menuItems: MenuItem[] = [
     name: "Beijing Fried Rice",
     description: "Rice stir-fried with vegetables in a mildly spicy Beijing-style sauce.",
     price: 144,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/beijing-fried-rice.jpg",
     spicy: false
   },
   {
@@ -1277,8 +1277,8 @@ const menuItems: MenuItem[] = [
     name: "Korian Rice",
     description: "Rice cooked with Korean-inspired seasoning and bold savory flavors.",
     price: 170,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/korian-rice.jpg",
     spicy: true
   },
   {
@@ -1286,8 +1286,8 @@ const menuItems: MenuItem[] = [
     name: "Steam Rice",
     description: "Plain steamed rice, light and fluffy, perfect as a side dish.",
     price: 90,
-    category: "rice",
-    image: "",
+    category: "Rice",
+    image: "/menuImages/Rice/steamed-rice.jpg",
     spicy: false
   }
 ]
