@@ -728,6 +728,7 @@ const menuItems: MenuItem[] = [
   },
 
   // Vegetable
+  // Hunan Veg needs an update
 
   {
     id: "76",
@@ -812,8 +813,483 @@ const menuItems: MenuItem[] = [
 
   // Chicken
 
-  
+  {
+    "id": "stir-fried-chicken-with-veg",
+    "name": "Stir Fried Chicken With Veg",
+    "description": "Tender chicken pieces stir-fried with fresh seasonal vegetables in a light savory sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/stir-fried1.jpg",
+    "spicy": false
+  },
+  {
+    "id": "garlic-pepper-chicken",
+    "name": "Garlic Pepper Chicken",
+    "description": "Juicy chicken cooked with crushed garlic and cracked black pepper for a bold, aromatic flavor.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/garlic-pepper-chicekn.jpg",
+    "spicy": false
+  },
+  {
+    "id": "shredded-chicken-chilly-garlic",
+    "name": "Shredded Chicken Chilly Garlic",
+    "description": "Finely shredded chicken tossed in a spicy chilli-garlic sauce with hints of soy and vinegar.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/shreaded-chicken-garlic.jpg",
+    "spicy": true
+  },
+  {
+    "id": "sliced-chicken-oyster-devils",
+    "name": "Sliced Chicken In Choice of Sauce (Chilly Oyster / Hot Garlic Devil's)",
+    "description": "Delicious Sliced Chicken In Choice of Sauce (Chilly Oyster / Hot Garlic Devil's) prepared in our signature style.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/sliced-chicken-oyster.jpg",
+    "spicy": true
+  },
+  {
+    "id": "sliced-chicken-red-green-curry",
+    "name": "Sliced Chicken In Choice of Sauce (Red Curry / Green Curry)",
+    "description": "Succulent chicken slices simmered in aromatic Thai red or green curry sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/slice-chicken-rg-curry.jpg",
+    "spicy": true
+  },
+  {
+    "id": "sliced-chicken-ginger",
+    "name": "Sliced Chicken Ginger Sauce",
+    "description": "Chicken slices cooked in a fragrant ginger-based sauce with subtle soy notes.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/sliced-chicken-ginger-sauce.jpg",
+    "spicy": false
+  },
+  {
+    "id": "bon-bon-chicken",
+    "name": "Bon Bon Chicken (With Bone)",
+    "description": "Crispy fried chicken pieces with bone, tossed in a mildly sweet and savory glaze.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/bon-bon-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "chicken-manchurian",
+    "name": "Chicken Manchurian",
+    "description": "Classic Indo-Chinese style chicken cooked in a thick, spicy, tangy Manchurian sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/chicken-manchurian.jpg",
+    "spicy": false
+  },
+  {
+    "id": "hoisin-chicken",
+    "name": "Slice Hoisin Chicken Stir-Fry",
+    "description": "Delicious Slice Hoisin Chicken Stir-Fry prepared in our signature style.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/slice-hoisin-chicken-stir-fry.jpg",
+    "spicy": false
+  },
+  {
+    "id": "veg-garlic-pepper-chicken",
+    "name": "Chicken Veg Garlic Pepper",
+    "description": "Chicken and vegetables tossed together with garlic and black pepper for a robust flavor.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/chicken-veg-garlic-pepper.jpg",
+    "spicy": false
+  },
+  {
+    "id": "devils-chicken",
+    "name": "Devil's Chicken",
+    "description": "Spicy and bold chicken dish cooked with chilli paste, peppers, and devil-style sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/Devil-Chicken.jpg",
+    "spicy": true
+  },
+  {
+    "id": "tsing-hoi-chicken",
+    "name": "Tsing Hoi Chicken",
+    "description": "Chicken cooked in a mildly spicy house-style sauce with aromatic herbs and vegetables.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/tsing-hoi-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "szechuan-chicken",
+    "name": "Szechuan Chicken",
+    "description": "Delicious Szechuan Chicken prepared in our signature style.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/sezuan-chicken.jpg",
+    "spicy": true
+  },
+  {
+    "id": "chilly-honey-chicken",
+    "name": "Chilly Honey Chicken",
+    "description": "Crispy chicken coated in a sweet honey glaze balanced with mild chilli heat.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/chilly-honey-chicken.jpg",
+    "spicy": true
+  },
+  {
+    "id": "sweet-sour-chicken",
+    "name": "Sweet & Sour Chicken",
+    "description": "Golden fried chicken pieces tossed in a classic sweet and tangy sauce with vegetables.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/sweet-sour-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "gooloo-chicken",
+    "name": "Gooloo Chicken",
+    "description": "Crispy chicken cooked in a glossy sweet sauce with pineapple and bell peppers.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/goloo-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "hunan-chicken",
+    "name": "Hunan Chicken",
+    "description": "Spicy Hunan-style chicken cooked with garlic, chillies, and bold fermented flavors.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/hunan-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "chicken-chilly",
+    "name": "Chicken Chilly Wine",
+    "description": "Crispy chicken stir-fried with green chillies, onions, and soy-based sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/chicken-chilly-wine.jpg",
+    "spicy": true
+  },
+  {
+    "id": "cantonese-chicken",
+    "name": "Cantonese Chicken",
+    "description": "Chicken cooked in a light Cantonese sauce emphasizing mild, clean, savory flavors.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/contonese-chicken.jpg",
+    "spicy": false
+  },
+  {
+    "id": "kung-pao-chicken",
+    "name": "Kung Pao Chicken",
+    "description": "Diced chicken stir-fried with peanuts, dried chillies, and a bold Kung Pao sauce.",
+    "price": 171,
+    "category": "Chicken",
+    "image": "/menuImages/Chicken/kung-pao-chicken.jpg",
+    "spicy": false
+  },
 
+  // category Sea-Food
+
+  {
+    "id": "sliced-fish-choice-sauce",
+    "name": "Sliced Fish Choice Of Sauce",
+    "description": "Tender fish slices cooked in your choice of chilli oyster, mustard, or chilli wine sauce.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/sliced-fish-choice-of-sauce.jpg",
+    "spicy": false
+  },
+  {
+    "id": "sliced-fish-thai-curry",
+    "name": "Sliced Fish Thai Curry",
+    "description": "Fresh fish slices simmered in aromatic Thai red or green curry with rich coconut flavors.",
+    "price": 300,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/sliced-fish-thai-curry.jpg",
+    "spicy": false
+  },
+  {
+    "id": "szechuan-fish",
+    "name": "Szechuan Fish",
+    "description": "Crispy fish tossed in spicy Szechuan sauce with dried red chillies and bold seasoning.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/szechuan-fish.jpg",
+    "spicy": true
+  },
+  {
+    "id": "fish-chilly-mustard",
+    "name": "Sliced Fish Chilly Mustard",
+    "description": "Fish slices cooked in a sharp and spicy mustard sauce with chilli undertones.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/fish-chilly-mustard.jpg",
+    "spicy": true
+  },
+  {
+    "id": "prawn-butter-garlic",
+    "name": "Prawn Butter Garlic",
+    "description": "Succulent prawns sautéed in rich butter and garlic, finished with mild seasoning.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/prawn-butter-garlic.jpg",
+    "spicy": false
+  },
+  {
+    "id": "cantonese-prawn",
+    "name": "Cantonese Prawn",
+    "description": "Prawns cooked in a light Cantonese-style sauce highlighting clean, delicate flavors.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/cantonese-prawn.jpg",
+    "spicy": false
+  },
+  {
+    "id": "devils-prawn",
+    "name": "Devil's Prawn",
+    "description": "Spicy prawns tossed in a bold devil-style sauce with chillies and aromatic spices.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/devil-prawn.jpg",
+    "spicy": true
+  },
+  {
+    "id": "hong-kong-prawn",
+    "name": "Hong Kong Prawn",
+    "description": "Juicy prawns cooked in a mildly sweet and savory Hong Kong-style sauce.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/hong-kong-prawn.jpg",
+    "spicy": false
+  },
+  {
+    "id": "prawn-choice-sauce",
+    "name": "Prawn In Choice Of Sauce",
+    "description": "Prawns cooked in your choice of hot garlic, chilli garlic, or chilli wine sauce.",
+    "price": 276,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/prawn-in-choice.jpg",
+    "spicy": false
+  },
+  {
+    "id": "prawn-thai-curry",
+    "name": "Prawn Thai Curry",
+    "description": "Prawns simmered in fragrant Thai curry sauce with coconut milk and herbs.",
+    "price": 300,
+    "category": "Sea-Food",
+    "image": "/menuImages/Sea-Food/prawn-thai.jpg",
+    "spicy": false
+  },
+
+  // Noodles
+
+  {
+    id: "hakka-noodles",
+    name: "Hakka Noodles",
+    description: "Classic stir-fried noodles tossed with vegetables and soy-based seasoning in Indo-Chinese style.",
+    price: 102,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "chilly-garlic-noodles",
+    name: "Chilly Garlic Noodles",
+    description: "Noodles stir-fried with garlic, dry red chillies, and spicy sauces for a bold kick.",
+    price: 112,
+    category: "noodles",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "e-fu-noodles",
+    name: "E Fu Noodles",
+    description: "Soft wheat noodles cooked in a light, savory sauce with vegetables and aromatic seasoning.",
+    price: 122,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "mee-fung-noodles",
+    name: "Mee Fung Noodles",
+    description: "Thin rice vermicelli noodles stir-fried with vegetables and mild Asian sauces.",
+    price: 144,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "jai-thai-noodles",
+    name: "Jai Thai Noodles",
+    description: "Thai-style noodles cooked with vegetables in a mildly spicy and aromatic sauce.",
+    price: 144,
+    category: "noodles",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "hong-kong-noodles",
+    name: "Hong Kong Noodles",
+    description: "Thin noodles stir-fried with vegetables in a light, subtly seasoned Hong Kong-style sauce.",
+    price: 120,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "singapore-noodles",
+    name: "Singapore Noodles",
+    description: "Rice noodles tossed with vegetables, curry seasoning, and aromatic spices.",
+    price: 120,
+    category: "noodles",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "cantonese-noodles",
+    name: "Cantonese Noodles",
+    description: "Noodles cooked in a rich Cantonese-style sauce with vegetables and balanced flavors.",
+    price: 156,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "pan-fried-noodles",
+    name: "Pan Fried Noodles",
+    description: "Crispy pan-fried noodles topped with stir-fried vegetables in savory gravy.",
+    price: 156,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "american-chopsuey",
+    name: "American Chopsuey",
+    description: "Crispy fried noodles served with sweet and tangy vegetable gravy.",
+    price: 156,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "chinese-chopsuey",
+    name: "Chinese Chopsuey",
+    description: "Crispy noodles topped with classic Chinese-style vegetable sauce.",
+    price: 156,
+    category: "noodles",
+    image: "",
+    spicy: false
+  },
+
+  // Rice
+
+  {
+    id: "fried-rice",
+    name: "Fried Rice",
+    description: "Steamed rice stir-fried with vegetables and light soy seasoning.",
+    price: 118,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "egg-wrap-fried-rice",
+    name: "Egg Wrap Fried Rice",
+    description: "Flavorful fried rice wrapped in a thin omelette and lightly seasoned.",
+    price: 152,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "szechuan-fried-rice",
+    name: "Szechuan Fried Rice",
+    description: "Spicy fried rice tossed with Szechuan sauce and bold chilli flavors.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "burnt-garlic-rice",
+    name: "Burnt Garlic Rice",
+    description: "Rice stir-fried with aromatic burnt garlic and light seasoning.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "singapore-rice",
+    name: "Singapore Rice",
+    description: "Rice cooked with curry spices, vegetables, and aromatic seasoning.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "oyster-fried-rice",
+    name: "Oyster Fried Rice",
+    description: "Fried rice tossed with oyster sauce for a rich umami flavor.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "tripal-szechuan-rice",
+    name: "Tripal Szechuan Rice",
+    description: "Rice cooked with triple Szechuan seasoning for extra heat and bold taste.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "malak-fried-rice",
+    name: "Malak Fried Rice",
+    description: "Mildly spiced fried rice prepared in a house-style Malak seasoning.",
+    price: 120,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "beijing-fried-rice",
+    name: "Beijing Fried Rice",
+    description: "Rice stir-fried with vegetables in a mildly spicy Beijing-style sauce.",
+    price: 144,
+    category: "rice",
+    image: "",
+    spicy: false
+  },
+  {
+    id: "korian-rice",
+    name: "Korian Rice",
+    description: "Rice cooked with Korean-inspired seasoning and bold savory flavors.",
+    price: 170,
+    category: "rice",
+    image: "",
+    spicy: true
+  },
+  {
+    id: "steam-rice",
+    name: "Steam Rice",
+    description: "Plain steamed rice, light and fluffy, perfect as a side dish.",
+    price: 90,
+    category: "rice",
+    image: "",
+    spicy: false
+  }
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
