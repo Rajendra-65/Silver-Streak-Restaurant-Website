@@ -15,15 +15,15 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  // Dismus
-  // last two have to up to date
+  // Dimsums
+  
   {
     id: "1",
     name: "Ching Kao",
     description: "Ching Kao (Momo) is a delicious Chinese-style steamed dumpling filled with finely chopped vegetables or meat, delicately seasoned with aromatic spices. Soft on the outside and juicy inside, it is served hot with a tangy, spicy chutney that perfectly enhances its flavor. A light yet satisfying appetizer, Ching Kao is loved for its fresh taste and comforting bite.",
     price: 110,
-    category: "Dismus",
-    image: "/menuImages/Dismus/ching-kao.jpg",
+    category: "Dimsums",
+    image: "/menuImages/Dimsums/ching-kao.jpg",
     spicy: false,
   },
   {
@@ -31,8 +31,8 @@ const menuItems: MenuItem[] = [
     name: "Pan Fried Ching Kao",
     description: "Pan-Fried Ching Kao (Momo) is a perfect blend of crispy and juicy textures. Lightly pan-seared until golden on the outside, these momos have a soft, flavorful filling inside, infused with aromatic Chinese spices. Served hot with a spicy, tangy chutney, they offer a rich, smoky taste and a satisfying crunch in every bite—an ideal choice for momo lovers who enjoy bold flavors.",
     price: 133,
-    category: "Dismus",
-    image: "/menuImages/Dismus/pan-fried-ching-kao.jpg",
+    category: "Dimsums",
+    image: "/menuImages/Dimsums/pan-fried-ching-kao.jpg",
     spicy: false,
   },
   {
@@ -40,8 +40,8 @@ const menuItems: MenuItem[] = [
     name: "Spring Roll",
     description: "Spring Roll is a classic appetizer that delivers the perfect balance of crispiness and flavor. Wrapped in a thin pastry and fried until golden and crunchy, each roll is filled with finely chopped vegetables and aromatic seasonings. Served hot with a sweet and spicy dipping sauce, it offers a light yet satisfying bite with a delightful crunch—an ideal starter for those who enjoy fresh textures and bold  flavors.",
     price: 152,
-    category: "Dismus",
-    image: "/menuImages/Dismus/spring-roll.jpg",
+    category: "Dimsums",
+    image: "/menuImages/Dimsums/spring-roll.jpg",
     spicy: false,
   },
   {
@@ -49,12 +49,13 @@ const menuItems: MenuItem[] = [
     name: "Dragon Roll",
     description: "Spicy wings coated in Szechuan sauce with numbing peppercorns. Bold and flavorful.",
     price: 190,
-    category: "Dismus",
-    image: "/menuImages/Dismus/dragon-roll.jpg",
+    category: "Dimsums",
+    image: "/menuImages/Dimsums/dragon-roll.jpg",
     spicy: true,
   },
 
   // Soups
+  
   {
     id: "5",
     name: "chicken soup",
