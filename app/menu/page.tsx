@@ -493,7 +493,7 @@ const menuItems: MenuItem[] = [
     spicy: false,
   },
 
-  // Sea-Food
+  // Sea-Food starter
 
   {
     id: "53",

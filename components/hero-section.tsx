@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { QrCode } from "lucide-react"
+import Link from "next/link"
 
 export default function HeroSection() {
   return (
@@ -26,7 +27,9 @@ export default function HeroSection() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button size="lg" className="bg-red-700 hover:bg-red-800 text-white text-base px-8">
-            View Menu
+            <Link href = "/menu">
+              View Menu
+            </Link>
           </Button>
 
           <Button

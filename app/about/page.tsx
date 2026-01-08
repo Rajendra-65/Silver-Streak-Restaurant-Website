@@ -13,7 +13,7 @@ export default function AboutPage() {
                 Our <span className="text-accent">Story</span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                A legacy of authentic Chinese culinary excellence since 1995
+                A legacy of authentic Chinese culinary excellence since 2012
               </p>
             </div>
           </div>
@@ -32,7 +32,7 @@ export default function AboutPage() {
                 time-honored techniques passed down through generations.
               </p>
               <p className="text-lg text-muted-foreground mb-4 leading-relaxed">
-                Our head chef trained in Beijing and brings over 25 years of experience, ensuring every bite delivers
+                Our head chef trained in Beijing and brings over 13 years of experience, ensuring every bite delivers
                 the true essence of Chinese cooking. We believe in excellence, authenticity, and creating unforgettable
                 dining experiences.
               </p>
@@ -55,8 +55,8 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-primary rounded-lg flex items-center justify-center mb-6">
                   <span className="text-2xl">🌾</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Authentic</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-2xl font-bold mb-4 text-accent">Authentic</h3>
+                <p className=" leading-relaxed text-accent">
                   We source premium ingredients and use traditional cooking methods to ensure every dish is genuinely
                   authentic.
                 </p>
@@ -65,8 +65,8 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-primary rounded-lg flex items-center justify-center mb-6">
                   <span className="text-2xl">⭐</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Excellence</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-2xl font-bold mb-4 text-accent">Excellence</h3>
+                <p className="leading-relaxed text-accent">
                   From preparation to presentation, we maintain the highest standards in everything we do.
                 </p>
               </div>
@@ -74,8 +74,8 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-primary rounded-lg flex items-center justify-center mb-6">
                   <span className="text-2xl">❤️</span>
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Community</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-2xl font-bold mb-4 text-accent">Community</h3>
+                <p className="leading-relaxed text-accent">
                   We&apos;re committed to serving our community and creating a welcoming space for all.
                 </p>
               </div>
@@ -90,9 +90,9 @@ export default function AboutPage() {
                 <div className="relative h-64 mb-6 rounded-lg overflow-hidden ">
                   <Image src="/professional-headshot-of-asian-chef-in-white-chef-.jpg" alt="Head Chef" fill className="object-cover" />
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Chef Wei Ming</h3>
+                <h3 className="text-2xl font-bold mb-2 text-accent">Chef Wei Ming</h3>
                 <p className="text-accent font-semibold mb-3">Head Chef & Founder</p>
-                <p className="text-muted-foreground">
+                <p className="text-accent">
                   With 25+ years of experience in authentic Chinese cuisine, Chef Wei brings traditional Beijing cooking
                   techniques to every dish.
                 </p>
@@ -101,9 +101,9 @@ export default function AboutPage() {
                 <div className="relative h-64 mb-6 rounded-lg overflow-hidden ">
                   <Image src="/professional-headshot-of-woman-in-restaurant-manag.jpg" alt="General Manager" fill className="object-cover" />
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Sarah Chen</h3>
-                <p className="text-accent font-semibold mb-3">General Manager</p>
-                <p className="text-muted-foreground">
+                <h3 className="text-2xl font-bold mb-2 text-accent">Sarah Chen</h3>
+                <p className="font-semibold mb-3 text-accent">General Manager</p>
+                <p className="text-accent">
                   Sarah ensures every guest receives exceptional service and creates an unforgettable dining experience
                   with her warm hospitality.
                 </p>
