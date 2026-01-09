@@ -34,7 +34,7 @@ export default function OrderingClient({ table, menu }: Props) {
             {/* ITEMS */}
             <div className="flex items-center justify-center mt-2 z-50 sticky top-18 bg-neutral-950">
                 <Link
-                    href={`cart/${table}`}
+                    href={`/ordering/cart`}
                 >
                     <Button
                         className="bg-amber-400 w-52 hover:bg-amber-700"
