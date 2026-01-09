@@ -1,8 +1,7 @@
-// server file
 import axios from "axios"
 
-export const getMenu = async () => {
-  const response = await axios.get(`${process.env.PUBLIC_URL}/api/menu`);
+export const getMenuByCategory = async () => {
+  const response = await axios.get(`${process.env.PUBLIC_URL}/api/menu-by-category`);
   const Dimsum = response.data.Dimsum;
   const Soup = response.data.Soup;
   const Veg_Starter = response.data.Veg_Starter;
@@ -15,5 +14,4 @@ export const getMenu = async () => {
   const Noodles = response.data.Noodles;
   const Rice =  response.data.Rice;
   return [Dimsum,Soup,Veg_Starter,Non_Veg_Starter,Sea_Food_Starter,Vegetarian,Vegetable,Chicken,Sea_Food,Noodles,Rice]
-         
 };
