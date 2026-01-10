@@ -8,6 +8,7 @@ import { useCart } from "@/context/cart-context";
 
 export function MenuItemCard({ item }: { item: MenuItem }) {
     const { addToCart } = useCart();
+    
     const [size, setSize] = useState<Variant["size"]>(
         item.variants[0].size
     );
