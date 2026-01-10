@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar"
 // const _geist = Geist({ subsets: ["latin"] })
 // const _geistMono = Geist_Mono({ subsets: ["latin"] })
 import { CartProvider } from "../context/cart-context"
+import { Toaster } from "sonner"
 
 export const metadata: Metadata = {
   title: "Silver Streak - Authentic Chinese Restaurant",
@@ -43,6 +44,7 @@ export default function RootLayout({
         <Navbar/>
         <CartProvider>
           {children}
+          <Toaster position="top-right" richColors />
         </CartProvider>
       </body>
     </html>

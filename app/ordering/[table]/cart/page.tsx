@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { CartItem } from "@/types/cart";
+import { toast } from "sonner";
+import { playNotificationSound } from "@/utils/playSound";
 
 export default function CartPage() {
   const { cart, clearCart } = useCart();
@@ -48,7 +50,8 @@ export default function CartPage() {
       setSuccessOrderId(data.orderId);
       setOrderItems(data.items)
       setGrandTotal(data.grandTotal)
-      alert("Order placed successfully");
+      toast.success("Order Placed Successfully")
+      playNotificationSound()
       setPlaceSuccess(true);
       clearCart();
     } else {

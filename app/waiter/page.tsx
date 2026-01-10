@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { playNotificationSound } from "@/utils/playSound";
+
 
 type OrderItem = {
   name: string;
@@ -25,6 +28,7 @@ export default function WaiterPage() {
   const fetchOrders = async () => {
     setLoading(true);
     const res = await fetch("/api/waiter/orders");
+    playNotificationSound()
     const data = await res.json();
     setOrders(data.orders || []);
     setLoading(false);
