@@ -5,7 +5,7 @@ import { Order } from "@/models/Order";
 export async function GET() {
   await connectDb();
 
-  const orders = await Order.find({ status: { $in: ["FINISHED", "PLACED"] }})
+  const orders = await Order.find()
     .sort({ createdAt: -1 })
     .lean();
 

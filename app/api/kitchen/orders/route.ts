@@ -5,9 +5,12 @@ import { Order } from "@/models/Order";
 export async function GET() {
   await connectDb();
 
-  const orders = await Order.find({ status: "CONFIRMED" })
-    .sort({ createdAt: 1 }) // FIFO for kitchen
+  const orders = await Order.find({
+    status: { $in: ["CONFIRMED", "PREPARING"] },
+  })
+    .sort({ createdAt: 1 })
     .lean();
+
 
   return NextResponse.json({ orders });
 }

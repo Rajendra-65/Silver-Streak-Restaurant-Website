@@ -20,6 +20,10 @@ type Order = {
 export default function KitchenPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [preparing,setPreparing] = useState(false);
+  const [finish,setFinish] = useState(false);
+
+
 
   const fetchOrders = async () => {
     const res = await fetch("/api/kitchen/orders");
@@ -40,6 +44,18 @@ export default function KitchenPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ orderId }),
     });
+    setPreparing(true)
+
+    fetchOrders();
+  };
+
+  const markFinish = async (orderId: string) => {
+    await fetch("/api/kitchen/finish", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId }),
+    });
+    setFinish(true)
 
     fetchOrders();
   };
@@ -97,12 +113,17 @@ export default function KitchenPage() {
             </div>
 
             {/* ACTION */}
-            <Button
+            {preparing ? <Button
+              className="w-full bg-orange-500 text-black font-semibold"
+              onClick={() => markFinish(order._id)}
+            >
+              Mark Finish 
+            </Button> : <Button
               className="w-full bg-orange-500 text-black font-semibold"
               onClick={() => markPreparing(order._id)}
             >
               Start Preparing
-            </Button>
+            </Button>}
           </div>
         ))}
       </div>

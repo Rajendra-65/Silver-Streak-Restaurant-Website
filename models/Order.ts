@@ -20,7 +20,7 @@ const orderSchema = new Schema(
     grandTotal: Number,
     status: {
       type: String,
-      enum: ["PLACED","CONFIRMED", "PREPARING", "SERVED"],
+      enum: ["PLACED","CONFIRMED", "PREPARING", "SERVED","FINISH"],
       default: "PLACED",
     },
   },
