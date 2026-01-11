@@ -10,7 +10,7 @@ export default function AboutSection() {
         </div>
 
         <p className="text-lg text-neutral-300 leading-relaxed mb-6">
-          For over two decades, Silver Streak has been a beacon of authentic Chinese cuisine in our community. Our
+          For over  decades, Silver Streak has been a beacon of authentic Chinese cuisine in our community. Our
           commitment to excellence begins with the finest ingredients, sourced daily to ensure freshness and quality in
           every dish.
         </p>
