@@ -8,6 +8,7 @@ export type CartItem = {
   choice?: string;
   unitPrice: number;
   quantity: number;
-  totalPrice : number;
-  grandTotal : number;
+  totalPrice? : number;
+  grandTotal? : number;
+
 };

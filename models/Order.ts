@@ -2,26 +2,41 @@ import mongoose, { Schema } from "mongoose";
 
 const orderItemSchema = new Schema(
   {
-    itemId: { type: Schema.Types.ObjectId, ref: "Menu", required: true },
+    itemId: { type: Schema.Types.ObjectId, ref: "Menu" },
     name: String,
     size: String,
     choice: String,
     quantity: Number,
     unitPrice: Number,
     totalPrice: Number,
+
+    status: {
+      type: String,
+      enum: ["PENDING", "PREPARING", "SERVED"],
+      default: "PENDING",
+    },
   },
-  { _id: false }
+  { _id: true }
 );
 
 const orderSchema = new Schema(
   {
-    table: { type: String, required: true },
+    table: {
+      type: String,
+      required: true,
+    },
+
     items: [orderItemSchema],
-    grandTotal: Number,
+
     status: {
       type: String,
-      enum: ["PLACED","CONFIRMED", "PREPARING", "SERVED","FINISH"],
+      enum: ["PLACED", "ACTIVE", "COMPLETED"],
       default: "PLACED",
+    },
+
+    grandTotal: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }

@@ -1,44 +1,49 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
-import { Menu } from "@/models/Menu";
 import { Order } from "@/models/Order";
+import { Menu } from "@/models/Menu";
+
+type Variant = {
+  size: string;
+  price: number;
+};
+
+type Choice = {
+  name: string;
+  extraPrice?: number;
+  extraPriceBySize?: Record<string, number>;
+};
+
+type MenuLean = {
+  _id: string;
+  name: string;
+  variants: Variant[];
+  choices: Choice[];
+};
 
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { items,table } = body;
-
+    const { table, items } = await req.json();
     await connectDb();
 
     const calculatedItems = [];
-    let grandTotal = 0;
+    let addedTotal = 0;
 
+    // 🔐 Always calculate price on server
     for (const cartItem of items) {
-      const menuItem = await Menu.findById(cartItem.itemId).lean();
-
-      if (!menuItem) {
-        return NextResponse.json(
-          { success: false, message: "Invalid item" },
-          { status: 400 }
-        );
-      }
+      const menuItem = (await Menu.findById(cartItem.itemId).lean()) as MenuLean | null;
+      if (!menuItem) continue;
 
       const variant = menuItem.variants.find(
-        (v: any) => v.size === cartItem.size
+        (v: Variant) => v.size === cartItem.size
       );
-
-      if (!variant) {
-        return NextResponse.json(
-          { success: false, message: "Invalid size" },
-          { status: 400 }
-        );
-      }
+      if (!variant) continue;
 
       let unitPrice = variant.price;
 
       const choice = menuItem.choices.find(
-        (c: any) => c.name === cartItem.choice
+        (c: Choice) => c.name === cartItem.choice
       );
 
       if (choice?.extraPriceBySize) {
@@ -48,7 +53,7 @@ export async function POST(req: Request) {
       }
 
       const totalPrice = unitPrice * cartItem.quantity;
-      grandTotal += totalPrice;
+      addedTotal += totalPrice;
 
       calculatedItems.push({
         itemId: menuItem._id,
@@ -58,26 +63,62 @@ export async function POST(req: Request) {
         quantity: cartItem.quantity,
         unitPrice,
         totalPrice,
-        grandTotal
       });
     }
 
-    const order = await Order.create({
-      table: table,
-      items: calculatedItems,
-      grandTotal,
+    
+    // 1️⃣ FIND ACTIVE ORDER FOR TABLE
+    const activeOrder = await Order.findOne({
+      table,
+      status: {$in :["PLACED","ACTIVE"]},
+    });
+
+    // 2️⃣ APPEND TO EXISTING ACTIVE ORDER
+    if (activeOrder) {
+      const itemsWithStatus = calculatedItems.map(item => ({
+        ...item,
+        status: "PENDING", // 👈 IMPORTANT
+      }));
+
+      activeOrder.items.push(...itemsWithStatus);
+      activeOrder.grandTotal += addedTotal;
+
+      await activeOrder.save();
+
+      return NextResponse.json({
+        success: true,
+        orderId: activeOrder._id,
+        items: activeOrder.items,
+        grandTotal: activeOrder.grandTotal,
+        appended: true,
+      });
+    }
+
+    // 3️⃣ CREATE NEW ORDER (ONLY IF NO ACTIVE ORDER)
+    const newOrder = await Order.create({
+      table,
+      items: calculatedItems.map(item => ({
+        ...item,
+        status: "PENDING", // 👈 IMPORTANT
+      })),
+      grandTotal: addedTotal,
+      status: "PLACED", // ✅ FIXED
     });
 
     return NextResponse.json({
       success: true,
-      orderId: order._id,
-      items : calculatedItems,
-      grandTotal : grandTotal,
+      orderId: newOrder._id,
+      items: newOrder.items,
+      grandTotal: newOrder.grandTotal,
+      status : newOrder.status,
+      appended: false,
     });
-  } catch (error) {
-    console.error(error);
+
+    
+  } catch (err) {
+    console.error(err);
     return NextResponse.json(
-      { success: false, message: "Server error" },
+      { success: false },
       { status: 500 }
     );
   }

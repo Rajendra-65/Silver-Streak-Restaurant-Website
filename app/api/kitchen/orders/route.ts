@@ -6,11 +6,17 @@ export async function GET() {
   await connectDb();
 
   const orders = await Order.find({
-    status: { $in: ["CONFIRMED", "PREPARING"] },
-  })
-    .sort({ createdAt: 1 })
-    .lean();
+    status: { $in: ["PLACED", "ACTIVE"] },
+    "items.status": { $in: ["PENDING", "PREPARING"] },
+  }).lean();
 
-
-  return NextResponse.json({ orders });
+  return NextResponse.json({
+    orders: orders.map(order => ({
+      _id: order._id,
+      table: order.table,
+      items: order.items.filter(
+        (item: any) => item.status !== "SERVED"
+      ),
+    })),
+  });
 }

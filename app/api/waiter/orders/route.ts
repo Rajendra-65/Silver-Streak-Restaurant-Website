@@ -5,9 +5,20 @@ import { Order } from "@/models/Order";
 export async function GET() {
   await connectDb();
 
-  const orders = await Order.find({ status: { $in: ["FINISHED", "PLACED"] }})
+  const orders = await Order.find({
+    status: { $in: ["PLACED", "ACTIVE"] },
+    "items.status": { $in: ["PREPARING", "SERVED"] },
+  })
     .sort({ createdAt: -1 })
     .lean();
 
-  return NextResponse.json({ orders });
+  return NextResponse.json({
+    orders: orders.map(order => ({
+      _id: order._id,
+      table: order.table,
+      items: order.items.filter(
+        item => item.status === "PREPARING" || item.status === "SERVED"
+      ),
+    })),
+  });
 }

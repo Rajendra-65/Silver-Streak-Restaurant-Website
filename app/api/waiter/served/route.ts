@@ -7,7 +7,7 @@ export async function POST(req: Request) {
   await connectDb();
 
   await Order.findByIdAndUpdate(orderId, {
-    status: "ACTIVE",
+    status: "SERVED",
   });
 
   return NextResponse.json({ success: true });
