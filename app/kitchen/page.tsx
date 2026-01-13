@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { playPlaceOrderNotificationSound } from "@/utils/playSound";
 
 type KitchenItem = {
   _id: string;
@@ -10,7 +11,7 @@ type KitchenItem = {
   size: string;
   choice?: string;
   quantity: number;
-  status: "PENDING" | "PREPARING";
+  status: "PENDING" | "PREPARING" | "READY";
 };
 
 type KitchenOrder = {
@@ -32,15 +33,31 @@ export default function KitchenPage() {
   };
 
   useEffect(() => {
-    fetchOrders();
-    const interval = setInterval(fetchOrders, 5000); // refresh every 5s
-    return () => clearInterval(interval);
+    let mounted = true;
+
+    const load = async () => {
+      if (!mounted) return;
+      await fetchOrders();
+    };
+
+    load(); // initial fetch
+
+    const interval = setInterval(() => {
+      if (mounted) {
+        fetchOrders();
+      }
+    }, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const updateStatus = async (
     orderId: string,
     itemId: string,
-    status: "PENDING" | "PREPARING" | "SERVED"
+    status: "PENDING" | "PREPARING" | "READY"
   ) => {
     await fetch("/api/kitchen/item-status", {
       method: "POST",
@@ -48,9 +65,11 @@ export default function KitchenPage() {
       body: JSON.stringify({ orderId, itemId, status }),
     });
 
-    
+
 
     fetchOrders();
+    playPlaceOrderNotificationSound();
+    toast.success("Status Updated Successfully");
   };
 
   if (loading) {

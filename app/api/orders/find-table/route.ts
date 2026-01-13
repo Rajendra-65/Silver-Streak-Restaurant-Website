@@ -6,17 +6,33 @@ export async function POST(req: Request) {
   try {
     const { table } = await req.json();
     await connectDb();
-    const order_of_the_table = await Order.find({
-        table : table
-    })
+
+    const order = await Order.findOne({
+      table,
+      status: { $in: ["PLACED", "ACTIVE"] },
+    }).lean();
+
+    if (!order) {
+      return NextResponse.json({
+        success: true,
+        order: null,
+      });
+    }
+
     return NextResponse.json({
-        order : order_of_the_table,
-        success : true
-    })
-  }catch(e) {
-    console.log(e);
-    return NextResponse.json({
-        success : false,
-    })
+      success: true,
+      order: {
+        _id: order._id.toString(),
+        items: order.items,
+        grandTotal: order.grandTotal,
+        status: order.status,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { success: false },
+      { status: 500 }
+    );
   }
 }

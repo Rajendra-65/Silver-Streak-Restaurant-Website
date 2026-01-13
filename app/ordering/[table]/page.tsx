@@ -22,10 +22,16 @@ const Ordering = async ({ params }: OrderParam) => {
     isAvailable:true
   }).lean<MenuItem[]>()
 
+  const safeMenu = menu.map((item:MenuItem) => ({
+  ...item,
+  _id: item._id.toString(),
+}));
+
+
   return(
     <OrderingClient
       table = {table}
-      menu = {menu}
+      menu = {safeMenu}
     />
   )
 

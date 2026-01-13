@@ -114,7 +114,7 @@ export async function POST(req: Request) {
     if (order) {
       order.items.push(...calculatedItems);
       order.grandTotal += addedTotal;
-
+      order.status = "ACTIVE"
       await order.save();
 
       return NextResponse.json({
@@ -132,7 +132,7 @@ export async function POST(req: Request) {
       table,
       items: calculatedItems,
       grandTotal: addedTotal,
-      status: "ACTIVE",
+      status: "PLACED",
     });
 
     return NextResponse.json({

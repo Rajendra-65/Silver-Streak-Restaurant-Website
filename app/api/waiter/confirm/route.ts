@@ -6,9 +6,10 @@ export async function POST(req: Request) {
   const { orderId } = await req.json();
   await connectDb();
 
-  await Order.findByIdAndUpdate(orderId, {
-    status: "ACTIVE",
-  });
+  await Order.updateOne(
+    { _id: orderId, status: "PLACED" },
+    { $set: { status: "ACTIVE" } }
+  );
 
   return NextResponse.json({ success: true });
 }

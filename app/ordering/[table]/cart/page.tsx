@@ -9,10 +9,10 @@ import { CartItem } from "@/types/cart";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
 
-type OrderStatus = "PLACED" | "ACTIVE" | "PREPARING" | "COMPLETED";
+type OrderStatus = "PLACED" | "ACTIVE" | "COMPLETED";
 
 export default function CartPage() {
-  const { cart, clearCart } = useCart();
+  const { cart, clearCart, removeFromCart } = useCart();
   const { table } = useParams<{ table: string }>();
   const router = useRouter();
 
@@ -21,43 +21,63 @@ export default function CartPage() {
   const [successOrderId, setSuccessOrderId] = useState<string>();
   const [orderItems, setOrderItems] = useState<CartItem[]>([]);
   const [grandTotal, setGrandTotal] = useState<number>(0);
-  const [orderStatus, setOrderStatus] = useState<OrderStatus>("PLACED");
+  const [orderStatus, setOrderStatus] =
+    useState<OrderStatus>("PLACED");
 
+  /* ---------------- FETCH EXISTING ORDER (IF ANY) ---------------- */
   const fetchOrderOfTheTable = async () => {
-    const order = await fetch(`/api/orders/find-table/`,{
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ table }),
-    });
-    const data = await order.json();
-    setOrderItems(data.items)
-  }
+    try {
+      const res = await fetch("/api/orders/find-table", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ table }),
+      });
 
-  useEffect(()=>{
-    fetchOrderOfTheTable()
-  },[])
+      const data = await res.json();
 
-  const fetchOrderStatusOfTheTable = async () => {
-    const order = await fetch(`/api/orders/table-status/`,{
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ table }),
-    });
-    const data = await order.json()
-    setOrderStatus(data.status)
-  }
+      if (data.success && data.order) {
+        setOrderItems(data.order.items);
+        setGrandTotal(data.order.grandTotal);
+        setOrderStatus(data.order.status);
+        setSuccessOrderId(data.order._id);
+        setPlaceSuccess(true);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  useEffect(()=>{
-    const interval = setInterval(fetchOrderStatusOfTheTable, 5000); // refresh every 5s
+  useEffect(() => {
+    fetchOrderOfTheTable();
+  }, []);
+
+  /* ---------------- POLL ORDER STATUS ---------------- */
+  const fetchOrderStatus = async () => {
+    try {
+      const res = await fetch("/api/orders/table-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ table }),
+      });
+      const data = await res.json();
+      if (data.status) {
+        setOrderStatus(data.status);
+      }
+    } catch { }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(fetchOrderStatus, 5000);
     return () => clearInterval(interval);
-  })
+  }, []);
 
-  /* ⚠️ UI ONLY (backend recalculates real price) */
+  /* ---------------- UI TOTAL (NOT TRUSTED) ---------------- */
   const displayTotal = cart.reduce(
     (sum, item) => sum + item.unitPrice * item.quantity,
     0
   );
 
+  /* ---------------- PLACE / APPEND ORDER ---------------- */
   const placeOrder = async () => {
     if (cart.length === 0) return;
 
@@ -92,7 +112,7 @@ export default function CartPage() {
       playPlaceOrderNotificationSound();
       toast.success(
         data.appended
-          ? "Items added to existing order"
+          ? "Items added to your order"
           : "Order placed successfully"
       );
 
@@ -105,7 +125,9 @@ export default function CartPage() {
     }
   };
 
-  /* ---------------- ORDER SUMMARY AFTER PLACING ---------------- */
+  /* ===============================================================
+     ORDER SUMMARY VIEW (AFTER ORDER IS PLACED / EXISTS)
+     =============================================================== */
   if (cart.length === 0 && placeSuccess) {
     return (
       <div className="bg-neutral-950 min-h-screen p-4">
@@ -120,9 +142,7 @@ export default function CartPage() {
             </span>
           </div>
 
-          <p className="text-accent text-sm">
-            Table {table}
-          </p>
+          <p className="text-accent text-sm">Table {table}</p>
 
           {/* ITEMS */}
           <div className="space-y-2">
@@ -152,17 +172,23 @@ export default function CartPage() {
             <span>₹ {grandTotal}</span>
           </div>
 
-          {/* ACTIONS */}
+          {/* STATUS MESSAGE */}
           <div className="text-center space-y-2 pt-2">
-            {orderStatus === "PLACED" ? <p className="text-yellow-400 font-medium">
-              Your Order Is Placed Successfully 
-            </p> : <></>}
-            {orderStatus === "ACTIVE"? <p className="text-yellow-400 font-medium">
-              Your Order Is Active Will Be Prepared Soon...
-            </p> : <></>}
-            {orderStatus === "COMPLETED"? <p className="text-yellow-400 font-medium">
-              Your Order Is Completed, Now you can make payment in counter or place new items...
-            </p> : <></>}
+            {orderStatus === "PLACED" && (
+              <p className="text-yellow-400">
+                Waiting for waiter confirmation…
+              </p>
+            )}
+            {orderStatus === "ACTIVE" && (
+              <p className="text-yellow-400">
+                Your food is being prepared 🍳
+              </p>
+            )}
+            {orderStatus === "COMPLETED" && (
+              <p className="text-green-400">
+                Order completed. Please pay at counter.
+              </p>
+            )}
 
             <Button
               variant="outline"
@@ -177,17 +203,27 @@ export default function CartPage() {
     );
   }
 
-  /* ---------------- NORMAL CART VIEW ---------------- */
+  /* ===============================================================
+     NORMAL CART VIEW
+     =============================================================== */
   return (
     <div className="p-4 bg-neutral-950 min-h-screen space-y-4">
       <h1 className="text-xl font-semibold text-accent">
         Your Cart
       </h1>
 
-      {cart.length === 0 && (
-        <p className="text-gray-400">
-          Your cart is empty
-        </p>
+      {cart.length === 0 && !placeSuccess && (
+        <>
+          <p className="text-gray-400">
+            Your cart is empty
+          </p>
+          <Button
+            className="w-full bg-green-600 disabled:opacity-50"
+            onClick={() => { router.push(`/ordering/${table}`) }}
+          >
+            Add Item
+          </Button>
+        </>
       )}
 
       {cart.map((item) => (
@@ -211,6 +247,13 @@ export default function CartPage() {
               ₹ {item.unitPrice} × {item.quantity}
             </p>
           </div>
+          <button
+            onClick={() => removeFromCart(item.id)}
+            className="text-red-400 hover:text-red-600 transition text-xl px-2"
+            aria-label="Remove item"
+          >
+            ✕
+          </button>
         </div>
       ))}
 
@@ -227,6 +270,12 @@ export default function CartPage() {
             disabled={placing}
           >
             {placing ? "Placing Order…" : "Place Order"}
+          </Button>
+          <Button
+            className="w-full bg-green-600 disabled:opacity-50"
+            onClick={() => { router.push(`/ordering/${table}`) }}
+          >
+            Add More Item
           </Button>
         </>
       )}

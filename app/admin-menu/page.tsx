@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 
@@ -23,10 +22,26 @@ export default function AdminMenuPage() {
     setMenu(data.menu || []);
     setLoading(false);
   };
-
   useEffect(() => {
-    fetchMenu();
-    
+    let mounted = true;
+
+    const load = async () => {
+      if (!mounted) return;
+      await fetchMenu();
+    };
+
+    load(); // initial fetch
+
+    const interval = setInterval(() => {
+      if (mounted) {
+        fetchMenu();
+      }
+    }, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const toggleAvailability = async (id: string) => {

@@ -2,19 +2,35 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { MenuItem, Variant } from "@/types/menu";
+import { MenuItem } from "@/types/menu";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/cart-context";
+import { useRouter } from "next/navigation";
 
-export function MenuItemCard({ item }: { item: MenuItem }) {
-    const { addToCart } = useCart();
-    
-    const [size, setSize] = useState<Variant["size"]>(
-        item.variants[0].size
+type MenuItemCardProps = {
+    item: MenuItem;
+    table: string;
+    addedToCart: boolean;
+    setAddedToCart: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function MenuItemCard({ item, table, addedToCart, setAddedToCart }: MenuItemCardProps) {
+    const [size, setSize] = useState<"Small" | "Regular">(
+        item.variants?.[0]?.size ?? "Small"
     );
 
-    const [choice, setChoice] = useState(
-        item.choices[0]?.name ?? ""
+    const [choice, setChoice] = useState<string | undefined>(
+        item.choices?.[0]?.name
+    );
+
+    const { cart, addToCart } = useCart();
+    const router = useRouter()
+
+    const alreadyInCart = cart.some(
+        (c) =>
+            c.id === item._id &&
+            c.size === size &&
+            c.choice === choice
     );
 
     const [quantity, setQuantity] = useState(1);
@@ -40,6 +56,20 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
 
         return final * quantity;
     }, [item, size, choice, quantity]);
+
+    const handleAdd = () => {
+        addToCart({
+            id: item._id,
+            name: item.name,
+            image: item.image,
+            size,
+            choice,
+            unitPrice: price / quantity,
+            quantity,
+        })
+
+        setAddedToCart(true); // ✅ updates parent state
+    };
 
 
     return (
@@ -106,20 +136,20 @@ export function MenuItemCard({ item }: { item: MenuItem }) {
                 {/* PRICE + ADD */}
                 <div className="flex justify-between items-center mt-3">
                     <span className="font-semibold">₹ {price}</span>
-                    <Button
-                        className="bg-amber-700 border "
-                        onClick={() =>
-                            addToCart({
-                                id: item._id,
-                                name: item.name,
-                                image: item.image,
-                                size,
-                                choice,
-                                unitPrice: price / quantity,
-                                quantity,
-                            })
-                        }
-                    >Add To Cart</Button>
+                    {alreadyInCart ? (
+                        <Button
+                            variant="outline"
+                            className="text-amber-800"
+                            onClick={() => router.push(`/ordering/${table}/cart`)}
+                        >
+                            Go to Cart
+                        </Button>
+                    ) : (
+                        <Button
+                            className="bg-amber-700 border "
+                            onClick={() => handleAdd()}
+                        >Add To Cart</Button>
+                    )}
                 </div>
             </div>
         </div>

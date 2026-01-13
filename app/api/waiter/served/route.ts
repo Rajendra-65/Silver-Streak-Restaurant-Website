@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
+import { OrderItem } from "@/types/order";
 
 export async function POST(req: Request) {
   try {
@@ -25,7 +26,7 @@ export async function POST(req: Request) {
 
     // 3️⃣ ✅ CHECK IF ALL ITEMS ARE SERVED
     const allServed = order.items.every(
-      (item) => item.status === "SERVED"
+      (item : OrderItem) => item.status === "SERVED"
     );
 
     // 4️⃣ COMPLETE ORDER IF YES

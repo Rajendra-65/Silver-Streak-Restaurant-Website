@@ -32,10 +32,25 @@ export default function AdminOrdersPage() {
   };
 
   useEffect(() => {
-    fetchOrders();
+    let mounted = true;
 
-    const interval = setInterval(fetchOrders, 5000); // refresh every 5s
-    return () => clearInterval(interval);
+    const load = async () => {
+      if (!mounted) return;
+      await fetchOrders();
+    };
+
+    load(); // initial fetch
+
+    const interval = setInterval(() => {
+      if (mounted) {
+        fetchOrders();
+      }
+    }, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const forceComplete = async (orderId: string) => {
@@ -66,7 +81,7 @@ export default function AdminOrdersPage() {
           >
             {/* ROW SUMMARY */}
             <h1 className="text-accent font-medium">
-                Table {order.table}
+              Table {order.table}
             </h1>
             <div className="grid grid-cols-5 gap-3 px-4 py-3 items-center">
               <span className="text-xs text-gray-400 truncate">
@@ -74,11 +89,10 @@ export default function AdminOrdersPage() {
               </span>
 
               <span
-                className={`text-xs px-2 py-1 rounded w-fit ${
-                  order.status === "COMPLETED"
+                className={`text-xs px-2 py-1 rounded w-fit ${order.status === "COMPLETED"
                     ? "bg-green-600/20 text-green-400"
                     : "bg-yellow-500/20 text-yellow-400"
-                }`}
+                  }`}
               >
                 {order.status}
               </span>

@@ -1,23 +1,22 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
-import { OrderItem } from "@/types/order";
 
 export async function GET() {
   await connectDb();
 
   const orders = await Order.find({
-    status: { $in: [ "ACTIVE"] },
-    "items.status": { $in: ["PENDING", "PREPARING"] },
-  }).lean();
+    status: { $in: ["PLACED"] },
+    "items.status": { $in: ["PENDING"] },
+  })
+    .sort({ createdAt: -1 })
+    .lean();
 
   return NextResponse.json({
     orders: orders.map(order => ({
       _id: order._id,
       table: order.table,
-      items: order.items.filter(
-        (item: OrderItem) => item.status !== "SERVED"
-      ),
+      items: order.items
     })),
   });
 }

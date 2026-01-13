@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { MenuItem } from "@/types/menu";
 import { MenuItemCard } from "./menu-item-card";
 import { Button } from "./ui/button";
@@ -17,6 +17,8 @@ export default function OrderingClient({ table, menu }: Props) {
         [menu]
     );
 
+    const [addedToCart, setAddedToCart] = useState(false)
+
     return (
         <div className="bg-neutral-950 text-white">
             {/* CATEGORY BAR */}
@@ -28,21 +30,10 @@ export default function OrderingClient({ table, menu }: Props) {
                         </Button>
                     </a>
                 ))}
-                
+
             </div>
 
             {/* ITEMS */}
-            <div className="flex items-center justify-center mt-2 z-50 sticky bottom-0 bg-neutral-950">
-                <Link
-                    href={`/ordering/${table}/cart`}
-                >
-                    <Button
-                        className="bg-amber-400 w-52 hover:bg-amber-700"
-                    >
-                        <h1>Visit Cart</h1>
-                    </Button>
-                </Link>
-            </div>
             <div className="p-4 space-y-10">
                 {categories.map((category) => (
                     <div key={category} id={category}>
@@ -52,12 +43,29 @@ export default function OrderingClient({ table, menu }: Props) {
                             {menu
                                 .filter((item) => item.category === category)
                                 .map((item) => (
-                                    <MenuItemCard key={item._id} item={item} />
+                                    <MenuItemCard key={item._id} item={item} table={table} addedToCart={addedToCart} setAddedToCart={setAddedToCart} />
                                 ))}
                         </div>
                     </div>
                 ))}
             </div>
+            {/* CART */}
+            {
+                addedToCart ? (
+                    <div className="flex items-center justify-center mt-2 z-50 sticky bottom-0 transition-all duration-300 animate-pulse">
+                        <Link
+                            href={`/ordering/${table}/cart`}
+                        >
+                            <Button
+                                className="bg-amber-400 w-52 hover:bg-amber-700"
+                            >
+                                <h1>Go To Cart</h1>
+                            </Button>
+                        </Link>
+                    </div>
+                ) : (<></>)
+            }
+
         </div>
     );
 }
