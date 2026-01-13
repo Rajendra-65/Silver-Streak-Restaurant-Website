@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartItem } from "@/types/cart";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
 
-type OrderStatus = "PLACED" | "ACTIVE";
+type OrderStatus = "PLACED" | "ACTIVE" | "PREPARING" | "COMPLETED";
 
 export default function CartPage() {
   const { cart, clearCart } = useCart();
@@ -22,6 +22,35 @@ export default function CartPage() {
   const [orderItems, setOrderItems] = useState<CartItem[]>([]);
   const [grandTotal, setGrandTotal] = useState<number>(0);
   const [orderStatus, setOrderStatus] = useState<OrderStatus>("PLACED");
+
+  const fetchOrderOfTheTable = async () => {
+    const order = await fetch(`/api/orders/find-table/`,{
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table }),
+    });
+    const data = await order.json();
+    setOrderItems(data.items)
+  }
+
+  useEffect(()=>{
+    fetchOrderOfTheTable()
+  },[])
+
+  const fetchOrderStatusOfTheTable = async () => {
+    const order = await fetch(`/api/orders/table-status/`,{
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table }),
+    });
+    const data = await order.json()
+    setOrderStatus(data.status)
+  }
+
+  useEffect(()=>{
+    const interval = setInterval(fetchOrderStatusOfTheTable, 5000); // refresh every 5s
+    return () => clearInterval(interval);
+  })
 
   /* ⚠️ UI ONLY (backend recalculates real price) */
   const displayTotal = cart.reduce(
@@ -125,9 +154,15 @@ export default function CartPage() {
 
           {/* ACTIONS */}
           <div className="text-center space-y-2 pt-2">
-            <p className="text-yellow-400 font-medium">
-              Order is being prepared
-            </p>
+            {orderStatus === "PLACED" ? <p className="text-yellow-400 font-medium">
+              Your Order Is Placed Successfully 
+            </p> : <></>}
+            {orderStatus === "ACTIVE"? <p className="text-yellow-400 font-medium">
+              Your Order Is Active Will Be Prepared Soon...
+            </p> : <></>}
+            {orderStatus === "COMPLETED"? <p className="text-yellow-400 font-medium">
+              Your Order Is Completed, Now you can make payment in counter or place new items...
+            </p> : <></>}
 
             <Button
               variant="outline"

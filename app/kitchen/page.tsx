@@ -40,7 +40,7 @@ export default function KitchenPage() {
   const updateStatus = async (
     orderId: string,
     itemId: string,
-    status: "PREPARING" | "SERVED"
+    status: "PENDING" | "PREPARING" | "SERVED"
   ) => {
     await fetch("/api/kitchen/item-status", {
       method: "POST",
@@ -48,11 +48,7 @@ export default function KitchenPage() {
       body: JSON.stringify({ orderId, itemId, status }),
     });
 
-    toast.success(
-      status === "PREPARING"
-        ? "Cooking started"
-        : "Item completed"
-    );
+    
 
     fetchOrders();
   };
@@ -115,10 +111,10 @@ export default function KitchenPage() {
                 <Button
                   className="bg-green-600 hover:bg-green-700"
                   onClick={() =>
-                    updateStatus(order._id, item._id, "SERVED")
+                    updateStatus(order._id, item._id, "READY")
                   }
                 >
-                  Done
+                  READY
                 </Button>
               )}
             </div>

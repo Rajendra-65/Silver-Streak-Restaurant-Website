@@ -12,7 +12,7 @@ const orderItemSchema = new Schema(
 
     status: {
       type: String,
-      enum: ["PENDING", "PREPARING", "SERVED"],
+      enum: ["PENDING", "PREPARING", "READY", "SERVED"],
       default: "PENDING",
     },
   },

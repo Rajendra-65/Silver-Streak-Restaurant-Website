@@ -11,14 +11,14 @@ type OrderItem = {
   quantity: number;
   size: string;
   choice?: string;
-  status: "PENDING" | "PREPARING" | "SERVED";
+  status: "READY";
 };
 
 type Order = {
   _id: string;
   table: string;
   items: OrderItem[];
-  status: "PLACED" | "ACTIVE";
+  status:  "ACTIVE";
 };
 
 export default function WaiterPage() {
@@ -40,7 +40,7 @@ export default function WaiterPage() {
   }, []);
 
   const serveItem = async (orderId: string, itemId: string) => {
-    await fetch("/api/kitchen/item-status", {
+    await fetch("/api/waiter/served", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -87,7 +87,7 @@ export default function WaiterPage() {
           {/* ITEMS */}
           <div className="space-y-2">
             {order.items
-              .filter(item => item.status === "PREPARING")
+              .filter(item => item.status === "READY")
               .map(item => (
                 <div
                   key={item._id}
@@ -113,12 +113,6 @@ export default function WaiterPage() {
                 </div>
               ))}
           </div>
-
-          {order.items.every(item => item.status !== "PREPARING") && (
-            <p className="text-xs text-gray-400 text-center">
-              Waiting for kitchen…
-            </p>
-          )}
         </div>
       ))}
     </div>

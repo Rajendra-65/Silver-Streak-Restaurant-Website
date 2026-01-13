@@ -32,7 +32,7 @@ export default function OrderingClient({ table, menu }: Props) {
             </div>
 
             {/* ITEMS */}
-            <div className="flex items-center justify-center mt-2 z-50 sticky top-18 bg-neutral-950">
+            <div className="flex items-center justify-center mt-2 z-50 sticky bottom-0 bg-neutral-950">
                 <Link
                     href={`/ordering/${table}/cart`}
                 >

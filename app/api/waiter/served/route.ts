@@ -3,12 +3,43 @@ import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 
 export async function POST(req: Request) {
-  const { orderId } = await req.json();
-  await connectDb();
+  try {
+    const { orderId, itemId } = await req.json();
 
-  await Order.findByIdAndUpdate(orderId, {
-    status: "SERVED",
-  });
+    await connectDb();
 
-  return NextResponse.json({ success: true });
+    // 1️⃣ Mark item as SERVED
+    await Order.updateOne(
+      { _id: orderId, "items._id": itemId },
+      { $set: { "items.$.status": "SERVED" } }
+    );
+
+    // 2️⃣ Fetch updated order
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return NextResponse.json(
+        { success: false, message: "Order not found" },
+        { status: 404 }
+      );
+    }
+
+    // 3️⃣ ✅ CHECK IF ALL ITEMS ARE SERVED
+    const allServed = order.items.every(
+      (item) => item.status === "SERVED"
+    );
+
+    // 4️⃣ COMPLETE ORDER IF YES
+    if (allServed) {
+      order.status = "COMPLETED";
+      await order.save();
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false },
+      { status: 500 }
+    );
+  }
 }

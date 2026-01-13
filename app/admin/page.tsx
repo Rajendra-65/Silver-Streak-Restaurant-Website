@@ -6,81 +6,138 @@ import { Button } from "@/components/ui/button";
 type Order = {
   _id: string;
   table: string;
-  status: string;
+  status: "PLACED" | "ACTIVE" | "COMPLETED";
   grandTotal: number;
-  items: { name: string; quantity: number }[];
+  createdAt: string;
+  items: {
+    name: string;
+    quantity: number;
+    size: string;
+    choice?: string;
+    status: string;
+  }[];
 };
 
-export default function AdminDashboard() {
+export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
   const fetchOrders = async () => {
+    setLoading(true);
     const res = await fetch("/api/admin/orders");
     const data = await res.json();
     setOrders(data.orders || []);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchOrders();
-    const interval = setInterval(fetchOrders, 20000);
+
+    const interval = setInterval(fetchOrders, 5000); // refresh every 5s
     return () => clearInterval(interval);
   }, []);
 
-  const updateStatus = async (orderId: string, status: string) => {
-    await fetch("/api/admin/update-status", {
+  const forceComplete = async (orderId: string) => {
+    await fetch("/api/admin/force-complete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orderId, status }),
+      body: JSON.stringify({ orderId }),
     });
+
     fetchOrders();
   };
 
+  if (loading) {
+    return <div className="p-6 text-accent">Loading orders…</div>;
+  }
+
   return (
-    <div className="p-6 bg-neutral-950 min-h-screen text-accent space-y-4">
-      <h1 className="text-2xl font-bold">🛠 Admin Dashboard</h1>
+    <div className="p-6 bg-neutral-950 min-h-screen space-y-6">
+      <h1 className="text-2xl font-bold text-accent">
+        Admin – Orders Overview
+      </h1>
 
-      {orders.map((order) => (
-        <div
-          key={order._id}
-          className="border border-neutral-700 rounded p-4 space-y-2 bg-neutral-900"
-        >
-          <div className="flex justify-between">
-            <h2 className="font-semibold">
-              Table {order.table}
-            </h2>
-            <span className="text-sm">{order.status}</span>
-          </div>
+      <div className="space-y-3 border">
+        {orders.map(order => (
+          <div
+            key={order._id}
+            className="border border-neutral-800 rounded"
+          >
+            {/* ROW SUMMARY */}
+            <h1 className="text-accent font-medium">
+                Table {order.table}
+            </h1>
+            <div className="grid grid-cols-5 gap-3 px-4 py-3 items-center">
+              <span className="text-xs text-gray-400 truncate">
+                #{order._id}
+              </span>
 
-          <div className="text-sm space-y-1">
-            {order.items.map((item, i) => (
-              <p key={i}>
-                {item.quantity}× {item.name}
-              </p>
-            ))}
-          </div>
+              <span
+                className={`text-xs px-2 py-1 rounded w-fit ${
+                  order.status === "COMPLETED"
+                    ? "bg-green-600/20 text-green-400"
+                    : "bg-yellow-500/20 text-yellow-400"
+                }`}
+              >
+                {order.status}
+              </span>
 
-          <div className="flex justify-between font-semibold">
-            <span>Total</span>
-            <span>₹ {order.grandTotal}</span>
-          </div>
+              <span className="text-accent font-semibold">
+                ₹ {order.grandTotal}
+              </span>
 
-          <div className="flex gap-2 flex-wrap">
-            {["PLACED", "CONFIRMED", "PREPARING", "SERVED"].map(
-              (status) => (
+              <span className="text-xs text-gray-400">
+                {new Date(order.createdAt).toLocaleTimeString()}
+              </span>
+
+              <div className="flex gap-2 justify-end">
                 <Button
-                  key={status}
                   size="sm"
-                  className="text-amber-400"
-                  variant={order.status === status ? "default" : "outline"}
-                  onClick={() => updateStatus(order._id, status)}
+                  variant="outline"
+                  onClick={() =>
+                    setExpandedOrder(
+                      expandedOrder === order._id ? null : order._id
+                    )
+                  }
                 >
-                  {status}
+                  {expandedOrder === order._id ? "Hide" : "View"}
                 </Button>
-              )
+
+                {order.status !== "COMPLETED" && (
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => forceComplete(order._id)}
+                  >
+                    Force Close
+                  </Button>
+                )}
+              </div>
+            </div>
+
+            {/* READ-ONLY ITEM DETAILS */}
+            {expandedOrder === order._id && (
+              <div className="bg-neutral-900 border-t border-neutral-800 px-4 py-3 space-y-2">
+                {order.items.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex justify-between text-sm text-accent"
+                  >
+                    <span>
+                      {item.name} ({item.size})
+                      {item.choice && ` • ${item.choice}`} × {item.quantity}
+                    </span>
+                    <span className="text-gray-400">
+                      {item.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

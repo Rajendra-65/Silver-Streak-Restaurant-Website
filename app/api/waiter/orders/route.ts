@@ -6,8 +6,8 @@ export async function GET() {
   await connectDb();
 
   const orders = await Order.find({
-    status: { $in: ["PLACED", "ACTIVE"] },
-    "items.status": { $in: ["PREPARING", "SERVED"] },
+    status: { $in: ["ACTIVE"] },
+    "items.status": { $in: ["READY"] },
   })
     .sort({ createdAt: -1 })
     .lean();
@@ -17,7 +17,7 @@ export async function GET() {
       _id: order._id,
       table: order.table,
       items: order.items.filter(
-        item => item.status === "PREPARING" || item.status === "SERVED"
+        item => item.status === "READY"
       ),
     })),
   });

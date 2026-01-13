@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       status: ItemStatus;
     };
 
-    if (!["PREPARING", "SERVED"].includes(status)) {
+    if (!["PENDING","PREPARING", "READY"].includes(status)) {
       return NextResponse.json(
         { success: false, message: "Invalid status" },
         { status: 400 }
@@ -42,16 +42,6 @@ export async function POST(req: Request) {
         { success: false, message: "Order not found" },
         { status: 404 }
       );
-    }
-
-    // 4️⃣ If all items served → complete order
-    const allServed = order.items.every(
-      item => item.status === "SERVED"
-    );
-
-    if (allServed) {
-      order.status = "COMPLETED";
-      await order.save();
     }
 
     return NextResponse.json({ success: true });
