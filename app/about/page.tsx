@@ -1,7 +1,7 @@
 import Footer from "@/components/footer"
 import Image from "next/image"
 
-export default function AboutPage() {
+export default function Page() {
   return (
     <>
       <main className="bg-neutral-950 text-foreground">

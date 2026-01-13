@@ -67,7 +67,7 @@ const testimonials = [
   },
 ]
 
-export default function WhyUsPage() {
+export default function Page() {
   return (
     <>
       <main className="bg-neutral-950 text-foreground">

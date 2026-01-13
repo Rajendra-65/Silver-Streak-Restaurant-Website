@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
@@ -37,7 +37,7 @@ type ServeOrder = {
 
 /* ---------------- COMPONENT ---------------- */
 
-export default function WaiterPage() {
+export default function Page() {
   const [tab, setTab] = useState<"CONFIRM" | "SERVE">("CONFIRM");
 
   const [confirmOrders, setConfirmOrders] = useState<ConfirmOrder[]>([]);
@@ -46,45 +46,48 @@ export default function WaiterPage() {
 
   /* ---------------- FETCH ---------------- */
 
-  const fetchConfirmOrders = async () => {
+  const fetchConfirmOrders = useCallback(async () => {
     const res = await fetch("/api/waiter/orders-to-confirm");
     const data = await res.json();
     setConfirmOrders(data.orders || []);
-  };
+  }, []);
 
-  const fetchServeOrders = async () => {
+  const fetchServeOrders = useCallback(async () => {
     const res = await fetch("/api/waiter/orders-to-serve");
     const data = await res.json();
     setServeOrders(data.orders || []);
-  };
+  }, []);
 
-  const fetchAll = async () => {
+  const fetchAll = useCallback(async () => {
     setLoading(true);
-    await Promise.all([fetchConfirmOrders(), fetchServeOrders()]);
+    await Promise.all([
+      fetchConfirmOrders(),
+      fetchServeOrders(),
+    ]);
     setLoading(false);
-  };
+  }, [fetchConfirmOrders, fetchServeOrders]);
 
   useEffect(() => {
-      let mounted = true;
-  
-      const load = async () => {
-        if (!mounted) return;
-        await fetchAll();
-      };
-  
-      load(); // initial fetch
-  
-      const interval = setInterval(() => {
-        if (mounted) {
-          fetchAll();
-        }
-      }, 5000);
-  
-      return () => {
-        mounted = false;
-        clearInterval(interval);
-      };
-    }, []);
+    let mounted = true;
+
+    const load = async () => {
+      if (!mounted) return;
+      await fetchAll();
+    };
+
+    load(); // initial fetch
+
+    const interval = setInterval(() => {
+      if (mounted) {
+        fetchAll();
+      }
+    }, 5000);
+
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, [fetchAll]);
 
   /* ---------------- ACTIONS ---------------- */
 

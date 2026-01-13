@@ -18,7 +18,7 @@ type Order = {
   }[];
 };
 
-export default function AdminOrdersPage() {
+export default function Page() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);

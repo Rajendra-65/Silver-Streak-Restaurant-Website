@@ -43,7 +43,7 @@ export default function OrderingClient({ table, menu }: Props) {
                             {menu
                                 .filter((item) => item.category === category)
                                 .map((item) => (
-                                    <MenuItemCard key={item._id} item={item} table={table} addedToCart={addedToCart} setAddedToCart={setAddedToCart} />
+                                    <MenuItemCard key={item._id} item={item} table={table} setAddedToCart={setAddedToCart} />
                                 ))}
                         </div>
                     </div>

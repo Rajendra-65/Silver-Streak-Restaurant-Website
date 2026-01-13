@@ -10,11 +10,10 @@ import { useRouter } from "next/navigation";
 type MenuItemCardProps = {
     item: MenuItem;
     table: string;
-    addedToCart: boolean;
     setAddedToCart: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export function MenuItemCard({ item, table, addedToCart, setAddedToCart }: MenuItemCardProps) {
+export function MenuItemCard({ item, table, setAddedToCart }: MenuItemCardProps) {
     const [size, setSize] = useState<"Small" | "Regular">(
         item.variants?.[0]?.size ?? "Small"
     );

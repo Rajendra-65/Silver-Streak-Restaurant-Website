@@ -4,14 +4,14 @@ import Image from "next/image";
 import { useCart } from "@/context/cart-context";
 import { Button } from "@/components/ui/button";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CartItem } from "@/types/cart";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
 
 type OrderStatus = "PLACED" | "ACTIVE" | "COMPLETED";
 
-export default function CartPage() {
+export default function Page() {
   const { cart, clearCart, removeFromCart } = useCart();
   const { table } = useParams<{ table: string }>();
   const router = useRouter();
@@ -25,7 +25,7 @@ export default function CartPage() {
     useState<OrderStatus>("PLACED");
 
   /* ---------------- FETCH EXISTING ORDER (IF ANY) ---------------- */
-  const fetchOrderOfTheTable = async () => {
+  const fetchOrderOfTheTable = useCallback(async () => {
     try {
       const res = await fetch("/api/orders/find-table", {
         method: "POST",
@@ -45,31 +45,31 @@ export default function CartPage() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [table]);
 
   useEffect(() => {
     fetchOrderOfTheTable();
-  }, []);
+  }, [fetchOrderOfTheTable]);
+
 
   /* ---------------- POLL ORDER STATUS ---------------- */
-  const fetchOrderStatus = async () => {
-    try {
-      const res = await fetch("/api/orders/table-status", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ table }),
-      });
-      const data = await res.json();
-      if (data.status) {
-        setOrderStatus(data.status);
-      }
-    } catch { }
-  };
+  const fetchOrderStatus = useCallback(async () => {
+    const res = await fetch("/api/orders/table-status", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table }),
+    });
+
+    const data = await res.json();
+    setOrderStatus(data.status);
+  }, [table]);
 
   useEffect(() => {
     const interval = setInterval(fetchOrderStatus, 5000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchOrderStatus]); // 👈 dependency added
+
 
   /* ---------------- UI TOTAL (NOT TRUSTED) ---------------- */
   const displayTotal = cart.reduce(

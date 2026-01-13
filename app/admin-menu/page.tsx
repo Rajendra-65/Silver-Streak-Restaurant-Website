@@ -11,7 +11,7 @@ type MenuItem = {
   isAvailable: boolean;
 };
 
-export default function AdminMenuPage() {
+export default function Page() {
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
 

@@ -1295,7 +1295,7 @@ const menuItems: MenuItem[] = [
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
 
-export default function MenuPage() {
+export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState("All Items")
 
   const filteredItems =

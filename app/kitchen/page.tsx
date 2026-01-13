@@ -20,7 +20,7 @@ type KitchenOrder = {
   items: KitchenItem[];
 };
 
-export default function KitchenPage() {
+export default function Page() {
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
   const [loading, setLoading] = useState(true);
 
