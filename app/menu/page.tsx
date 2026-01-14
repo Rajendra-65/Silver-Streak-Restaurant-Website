@@ -16,7 +16,7 @@ interface MenuItem {
 
 const menuItems: MenuItem[] = [
   // Dimsums
-  
+
   {
     id: "1",
     name: "Ching Kao",
@@ -55,7 +55,7 @@ const menuItems: MenuItem[] = [
   },
 
   // Soups
-  
+
   {
     id: "5",
     name: "chicken soup",
@@ -1290,7 +1290,341 @@ const menuItems: MenuItem[] = [
     category: "Rice",
     image: "/menuImages/Rice/steamed-rice.jpg",
     spicy: false
+  },
+
+  // Mocktail
+
+  {
+    id: "black-virgin-mojito",
+    name: "Black Virgin Mojito",
+    description: "Refreshing black virgin mojito with mint and lemon",
+    price: 99,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/black-virgin-mojito.jpg",
+    spicy: false
+  },
+  {
+    id: "virgin-mojito",
+    name: "Virgin Mojito",
+    description: "Classic virgin mojito with mint and lime",
+    price: 99,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/virgin-mojito.jpg",
+    spicy: false
+  },
+  {
+    id: "ginger-fizz",
+    name: "Ginger Fizz",
+    description: "Zesty ginger-based refreshing drink",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/ginger-based-refreshing-drink.jpg",
+    spicy: false
+  },
+  {
+    id: "mint-fizz",
+    name: "Mint Fizz",
+    description: "Cool mint fizz with soda",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/mint-fizz-soda.jpg",
+    spicy: false
+  },
+  {
+    id: "blue-heaven",
+    name: "Blue Heaven",
+    description: "Sweet and refreshing blue heaven mocktail",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/blue-heaven.jpg",
+    spicy: false
+  },
+  {
+    id: "ice-tea-lemon",
+    name: "Ice Tea Lemon",
+    description: "Chilled lemon iced tea",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/ice-tea-lemon.jpg",
+    spicy: false
+  },
+  {
+    id: "ice-green-apple",
+    name: "Ice Green Apple",
+    description: "Refreshing green apple iced drink",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/ice-green-apple.jpg",
+    spicy: false
+  },
+  {
+    id: "cola-float",
+    name: "Cola Float",
+    description: "Classic cola topped with vanilla ice cream",
+    price: 89,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/cola-float.jpg",
+    spicy: false
+  },
+  {
+    id: "fresh-lime-soda",
+    name: "Fresh Lime Soda",
+    description: "Fresh lime with soda water",
+    price: 49,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/fresh-lime-soda.jpg",
+    spicy: false
+  },
+  {
+    id: "lime-cola",
+    name: "Lime Cola",
+    description: "Cola blended with fresh lime",
+    price: 49,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/lime-cola.jpg",
+    spicy: false
+  },
+  {
+    id: "masala-soft-drinks",
+    name: "Masala Soft Drinks",
+    description: "Indian-style masala flavored soft drink",
+    price: 49,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/masala-soda.jpg",
+    spicy: false
+  },
+  {
+    id: "soft-drinks",
+    name: "Soft Drinks",
+    description: "Assorted carbonated soft drinks",
+    price: 39,
+    category: "Mocktail",
+    image: "/menuImages/Drinks/Mocktail/carbonated-drink.jpg",
+    spicy: false
+  },
+
+  // Sundaes
+  {
+    id: "chocolate-sundae",
+    name: "Chocolate Sundae",
+    description: "Classic chocolate sundae with rich sauce",
+    price: 99,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/chocolate-sundae.jpg",
+    spicy: false
+  },
+  {
+    id: "butterscotch-sundae",
+    name: "Butterscotch Sundae",
+    description: "Creamy butterscotch flavored sundae",
+    price: 99,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/butterscotch-sundae.jpg",
+    spicy: false
+  },
+  {
+    id: "nutty-chocolate-sundae",
+    name: "Nutty Chocolate Sundae",
+    description: "Chocolate sundae topped with crunchy nuts",
+    price: 99,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/nutty-chocolate-sundae.jpg",
+    spicy: false
+  },
+  {
+    id: "mango-lychee-sundae",
+    name: "Mango / Lychee Sundae",
+    description: "Fruit-flavored sundae with mango or lychee",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/fruit-flavored-mango.jpg",
+    spicy: false
+  },
+  {
+    id: "strawberry-sundae",
+    name: "Strawberry Sundae",
+    description: "Strawberry flavored ice cream sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/strawberry-sundae.jpg",
+    spicy: false
+  },
+  {
+    id: "fruit-sundae",
+    name: "Fruit Sundae",
+    description: "Mixed fruit ice cream sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/fruit-sundae.jpg",
+    spicy: false
+  },
+  {
+    id: "caramel-sundae",
+    name: "Caramel Sundae",
+    description: "Sweet caramel flavored sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Dessert/caramel-sundae.jpg",
+    spicy: false
+  },
+
+  // Dessert
+  {
+    id: "caramel-fudge-brownie",
+    name: "Caramel Fudge Brownie",
+    description: "Warm brownie topped with caramel fudge",
+    price: 149,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/caramel-fudge-brownie.jpg",
+    spicy: false
+  },
+  {
+    id: "fruit-exotic",
+    name: "Fruit Exotic",
+    description: "Exotic mix of fresh seasonal fruits",
+    price: 149,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/exotic-fruit-drink.jpg",
+    spicy: false
+  },
+  {
+    id: "love-twist",
+    name: "Love Twist",
+    description: "Signature dessert with a sweet twist",
+    price: 149,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/love-twist.jpg",
+    spicy: false
+  },
+  {
+    id: "wicked-brownie",
+    name: "Wicked Brownie",
+    description: "Rich and indulgent chocolate brownie",
+    price: 129,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/wicked-brownie.jpg",
+    spicy: false
+  },
+  {
+    id: "chunky-choco",
+    name: "Chunky Choco",
+    description: "Chunky chocolate dessert delight",
+    price: 149,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/chunkey-chocolate.jpg",
+    spicy: false
+  },
+  {
+    id: "fruit-fantasy",
+    name: "Fruit Fantasy",
+    description: "Fruity dessert with creamy texture",
+    price: 130,
+    category: "Dessert",
+    image: "/menuImages/Drinks/Dessert/fruit-fantasy.jpg",
+    spicy: false
+  },
+
+  // Cold Coffee & Shake
+  {
+    id: "cafe-frappe",
+    name: "Cafe Frappe",
+    description: "Chilled coffee frappe with rich flavor",
+    price: 99,
+    category: "Cold-Coffee-&-Shake",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cafe-frappe.jpg",
+    spicy: false
+  },
+  {
+    id: "heavenly-mocha",
+    name: "Heavenly Mocha",
+    description: "Smooth mocha coffee drink",
+    price: 129,
+    category: "Cold-Coffee-&-Shake",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/heavenly-mocha.jpg",
+    spicy: false
+  },
+  {
+    id: "choco-frappe",
+    name: "Choco Frappe",
+    description: "Chocolate flavored frappe",
+    price: 129,
+    category: "Cold-Coffee-&-Shake",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/choco-frappe.jpg",
+    spicy: false
+  },
+  {
+    id: "thick-velvet-choco-shake",
+    name: "Thick Velvet Choco Shake",
+    description: "Thick and creamy chocolate shake",
+    price: 109,
+    category: "Cold-Coffee-&-Shake",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/thick-velvet-choco-shake.jpg",
+    spicy: false
+  },
+
+  // Hot Beverages
+
+  {
+    id: "chai-latte",
+    name: "Chai Latte",
+    description: "Hot spiced tea latte",
+    price: 59,
+    category: "Hot-Beverages",
+    image: "/menuImages/Drinks/hot-and-beverage/chai-latte.jpg",
+    spicy: false
+  },
+  {
+    id: "coffee-latte",
+    name: "Coffee Latte",
+    description: "Hot coffee with milk",
+    price: 59,
+    category: "Hot-Beverages",
+    image: "/menuImages/Drinks/hot-and-beverage/coffee-latte.jpg",
+    spicy: false
+  },
+  {
+    id: "hot-chocolate",
+    name: "Hot Chocolate",
+    description: "Rich and creamy hot chocolate",
+    price: 99,
+    category: "Hot-Beverages",
+    image: "/menuImages/Drinks/hot-and-beverage/hot-chocolate.jpg",
+    spicy: false
+  },
+
+  // smoothie
+  
+  {
+    id: "mango-smoothie",
+    name: "Mango Smoothie",
+    description: "Fresh mango blended smoothie",
+    price: 99,
+    category: "Smoothies",
+    image: "/menuImages/Drinks/Smoothie/mango-smoothie.jpg",
+    spicy: false
+  },
+  {
+    id: "strawberry-smoothie",
+    name: "Strawberry Smoothie",
+    description: "Fresh strawberry smoothie",
+    price: 99,
+    category: "Smoothies",
+    image: "/menuImages/Drinks/Smoothie/strawberry-smoothie.jpg",
+    spicy: false
+  },
+  {
+    id: "lychee-smoothie",
+    name: "Lychee Smoothie",
+    description: "Refreshing lychee smoothie",
+    price: 99,
+    category: "Smoothies",
+    image: "/menuImages/Drinks/Smoothie/lychee-smoothie.jpg",
+    spicy: false
   }
+
+
+
+
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
@@ -1327,11 +1661,10 @@ export default function Menu() {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-full font-semibold transition-all ${
-                    selectedCategory === category
-                      ? "bg-primary text-primary-foreground shadow-lg"
-                      : "bg-card text-foreground hover:bg-border"
-                  }`}
+                  className={`px-6 py-2 rounded-full font-semibold transition-all ${selectedCategory === category
+                    ? "bg-primary text-primary-foreground shadow-lg"
+                    : "bg-card text-foreground hover:bg-border"
+                    }`}
                 >
                   {category}
                 </button>
@@ -1353,7 +1686,7 @@ export default function Menu() {
                     fill
                     className="bg-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  
+
                   {item.spicy && (
                     <div className="absolute top-3 right-3 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
                       🌶️ Spicy
