@@ -1,7 +1,6 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { QrCode } from "lucide-react"
 import Link from "next/link"
 
 export default function HeroSection() {
@@ -30,15 +29,6 @@ export default function HeroSection() {
             <Link href = "/menu">
               View Menu
             </Link>
-          </Button>
-
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-yellow-400 text-yellow-400 hover:bg-yellow-400/10 text-base px-8 bg-transparent"
-          >
-            <QrCode className="w-5 h-5 mr-2" />
-            Scan QR & Order
           </Button>
         </div>
       </div>

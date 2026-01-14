@@ -1,5 +1,8 @@
+"use client";
 import Footer from "@/components/footer"
+import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { useRouter } from "next/navigation";
 
 interface Feature {
   title: string
@@ -50,7 +53,7 @@ const testimonials = [
   {
     name: "Michael Johnson",
     role: "Regular Customer",
-    text: "Silver Streak is our go-to restaurant. The food is absolutely authentic, and the service is always warm and welcoming. Highly recommend!",
+    text: "Favourite place for having Chinese food. Efu noodles must recommend",
     image: "/testimonial-michael.jpg",
   },
   {
@@ -68,6 +71,7 @@ const testimonials = [
 ]
 
 export default function Page() {
+  const router = useRouter()
   return (
     <>
       <main className="bg-neutral-950 text-foreground">
@@ -105,7 +109,7 @@ export default function Page() {
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="relative h-96 rounded-lg overflow-hidden">
-                <Image src="/quality-ingredients.jpg" alt="Premium Quality Ingredients" fill className="object-cover" />
+                <Image src="/ingrediants/fresh-ingrediants.jpg" alt="Premium Quality Ingredients" fill className="object-cover" />
               </div>
               <div>
                 <h2 className="text-4xl font-bold mb-6 text-accent">Our Quality Promise</h2>
@@ -188,12 +192,13 @@ export default function Page() {
               Join thousands of satisfied customers who have discovered authentic Chinese cuisine at its finest.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-secondary text-secondary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity">
-                Order Now
-              </button>
-              <button className="border-2 border-primary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary-foreground/10 transition-colors">
-                Make a Reservation
-              </button>
+              <Button 
+                className="bg-secondary text-secondary-foreground px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-opacity"
+                onClick={()=>router.push('/menu')}
+              >
+                View Menu
+              </Button>
+              
             </div>
           </div>
         </section>

@@ -39,7 +39,7 @@ export default function Page() {
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden bg-linear-to-br from-neutral-800 to-neutral-900 border border-amber-400">
               <Image
-                src="/authentic-chinese-restaurant-interior-with-red-lan.jpg"
+                src="/interior/Silver-streak-interior.jpg"
                 alt="Silver Streak Restaurant Interior"
                 fill
                 className="object-cover"

@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ShoppingCart } from "lucide-react"
+import Image from "next/image"
 
 const dishes = [
   {
@@ -10,36 +11,42 @@ const dishes = [
     name: "Crispy Szechuan Chicken",
     price: "₹171",
     description: "Crispy chicken tossed in spicy Szechuan sauce",
+    image: "/menuImages/Chicken/sezuan-chicken.jpg"
   },
   {
     id: 2,
     name: "Roast Mongolian Chicken",
     price: "₹267",
     description: "Roasted chicken tossed in Mongolian sauce",
+    image: "/menuImages/Non-Veg-Starter/roast-mongolian-chicken.jpg"
   },
   {
     id: 3,
     name: "Crispy Chicken Hong Kong Style",
     price: "₹171",
     description: "Crispy skin with plum sauce and crepes",
+    image: "/menuImages/Non-Veg-Starter/crispy-chicken-hong-kong.jpg"
   },
   {
     id: 4,
     name: "E fu Noodles",
     price: "₹122",
     description: "Flat noodles cooked in traditional style",
+    image: "/menuImages/Noodles/e-fu-noodles.jpg"
   },
   {
     id: 5,
     name: "Singapore Noodles",
     price: "₹120",
     description: "Handmade dumplings with shrimp and chives",
+    image: "/menuImages/Noodles/singapore-noodles.jpg"
   },
   {
     id: 6,
     name: "Tripal Szechuan Rice",
     price: "₹120",
-    description: "Customizable hot pot with premium meats",
+    description: "Triple Szechuan flavoured fried rice",
+    image : "/menuImages/Rice/tripal-szechuan-rice.jpg"
   },
 ]
 
@@ -61,10 +68,16 @@ export default function PopularDishesSection() {
             >
               {/* Image placeholder */}
               <div className="h-48 bg-linear-to-br from-neutral-800 to-neutral-900 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-5xl mb-2">🥢</div>
-                  <p className="text-neutral-500 text-sm">Chinese Dish</p>
+                <div className="relative w-full h-full overflow-hidden">
+                  <Image
+                    src={dish.image as string}
+                    alt={dish.name}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
                 </div>
+
               </div>
 
               <div className="p-6">
