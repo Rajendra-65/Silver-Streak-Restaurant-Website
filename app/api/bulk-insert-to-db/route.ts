@@ -405,7 +405,7 @@ export const nonVegStarters = [
     choices: []
   },
 
-  
+
   {
     name: "Roast Mongolian Chicken",
     category: "Non-Veg-Starter",
@@ -728,7 +728,7 @@ export const vegetarian = [
     description: "Paneer tossed in classic Manchurian sauce",
     image: "/menuImages/Vegetarian/paneer-manchurian.jpg",
     variants: [
-      { size: "Small", price: 276 },
+      { size: "Small", price: 167 },
       { size: "Regular", price: 205 }
     ],
     choices: []
@@ -1074,16 +1074,16 @@ export const chicken = [
     choices: []
   },
   {
-    name : "Chicken Veg Garlic Pepper",
-    category : "Chicken",
-    description : "Chicken and vegetables tossed together",
-    image : "/menuImages/Chicken/chicken-veg-garlic-pepper.jpg",
-    variants : [
+    name: "Chicken Veg Garlic Pepper",
+    category: "Chicken",
+    description: "Chicken and vegetables tossed together",
+    image: "/menuImages/Chicken/chicken-veg-garlic-pepper.jpg",
+    variants: [
       {
-        size : "small" , price : 171
+        size: "small", price: 171
       },
       {
-        size : "Regular", price : 314
+        size: "Regular", price: 314
       }
     ]
   },
@@ -1682,7 +1682,281 @@ export const rice = [
   }
 ];
 
+export const mocktail = [
+  {
+    name: "Black Virgin Mojito",
+    category: "Mocktail",
+    description: "Refreshing black virgin mojito with mint and lemon",
+    image: "/menuImages/Drinks/Mocktail/black-virgin-mojito.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  },
+  {
+    name: "Virgin Mojito",
+    category: "Mocktail",
+    description: "Classic virgin mojito with mint and lime",
+    image: "/menuImages/Drinks/Mocktail/virgin-mojito.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  },
+  {
+    name: "Ginger Fizz",
+    category: "Mocktail",
+    description: "Zesty ginger-based refreshing drink",
+    image: "/menuImages/Drinks/Mocktail/ginger-based-refreshing-drink.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Mint Fizz",
+    category: "Mocktail",
+    description: "Cool mint fizz with soda",
+    image: "/menuImages/Drinks/Mocktail/mint-fizz-soda.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Blue Heaven",
+    category: "Mocktail",
+    description: "Sweet and refreshing blue heaven mocktail",
+    image: "/menuImages/Drinks/Mocktail/blue-heaven.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Ice Tea Lemon",
+    category: "Mocktail",
+    description: "Chilled lemon iced tea",
+    image: "/menuImages/Drinks/Mocktail/ice-tea-lemon.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Ice Green Apple",
+    category: "Mocktail",
+    description: "Refreshing green apple iced drink",
+    image: "/menuImages/Drinks/Mocktail/ice-green-apple.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Cola Float",
+    category: "Mocktail",
+    description: "Classic cola topped with vanilla ice cream",
+    image: "/menuImages/Drinks/Mocktail/cola-float.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    choices: []
+  },
+  {
+    name: "Fresh Lime Soda",
+    category: "Mocktail",
+    description: "Fresh lime with soda water",
+    image: "/menuImages/Drinks/Mocktail/fresh-lime-soda.jpg",
+    variants: [{ size: "Regular", price: 49 }],
+    choices: []
+  },
+  {
+    name: "Lime Cola",
+    category: "Mocktail",
+    description: "Cola blended with fresh lime",
+    image: "/menuImages/Drinks/Mocktail/lime-cola.jpg",
+    variants: [{ size: "Regular", price: 49 }],
+    choices: []
+  },
+  {
+    name: "Masala Soft Drinks",
+    category: "Mocktail",
+    description: "Indian-style masala flavored soft drink",
+    image: "/menuImages/Drinks/Mocktail/masala-soda.jpg",
+    variants: [{ size: "Regular", price: 49 }],
+    choices: []
+  },
+  {
+    name: "Soft Drinks",
+    category: "Mocktail",
+    description: "Assorted carbonated soft drinks",
+    image: "/menuImages/Drinks/Mocktail/carbonated-drink.jpg",
+    variants: [{ size: "Regular", price: 39 }],
+    choices: []
+  }
+]
 
+export const sundaes = [
+  {
+    name: "Chocolate Sundae",
+    category: "Sundaes",
+    description: "Classic chocolate sundae with rich sauce",
+    image: "/menuImages/Drinks/Dessert/chocolate-sundae.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  },
+  {
+    name: "Butterscotch Sundae",
+    category: "Sundaes",
+    description: "Creamy butterscotch flavored sundae",
+    image: "/menuImages/Drinks/Dessert/butterscotch-sundae.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  },
+  {
+    name: "Nutty Chocolate Sundae",
+    category: "Sundaes",
+    description: "Chocolate sundae topped with crunchy nuts",
+    image: "/menuImages/Drinks/Dessert/nutty-chocolate-sundae.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  }
+
+]
+
+export const Dessert = [
+  {
+    name: "Caramel Fudge Brownie",
+    category: "Dessert",
+    description: "Warm brownie topped with rich caramel fudge",
+    image: "/menuImages/Drinks/Dessert/caramel-fudge-brownie.jpg",
+    variants: [
+      { size: "Regular", price: 149 }
+    ],
+    choices: []
+  },
+  {
+    name: "Fruit Exotic",
+    category: "Dessert",
+    description: "Exotic mix of fresh seasonal fruits",
+    image: "/menuImages/Drinks/Dessert/exotic-fruit-drink.jpg",
+    variants: [
+      { size: "Regular", price: 149 }
+    ],
+    choices: []
+  },
+  {
+    name: "Love Twist",
+    category: "Dessert",
+    description: "Signature dessert with a sweet romantic twist",
+    image: "/menuImages/Drinks/Dessert/love-twist.jpg",
+    variants: [
+      { size: "Regular", price: 149 }
+    ],
+    choices: []
+  },
+  {
+    name: "Wicked Brownie",
+    category: "Dessert",
+    description: "Rich and indulgent chocolate brownie",
+    image: "/menuImages/Drinks/Dessert/wicked-brownie.jpg",
+    variants: [
+      { size: "Regular", price: 129 }
+    ],
+    choices: []
+  },
+  {
+    name: "Chunky Choco",
+    category: "Dessert",
+    description: "Chunky chocolate dessert delight",
+    image: "/menuImages/Drinks/Dessert/chunkey-chocolate.jpg",
+    variants: [
+      { size: "Regular", price: 149 }
+    ],
+    choices: []
+  },
+  {
+    name: "Fruit Fantasy",
+    category: "Dessert",
+    description: "Creamy fruity dessert with a refreshing taste",
+    image: "/menuImages/Drinks/Dessert/fruit-fantasy.jpg",
+    variants: [
+      { size: "Regular", price: 130 }
+    ],
+    choices: []
+  }
+]
+
+export const Cold_Coffee_and_Shake = [
+  {
+    name: "Cafe Frappe",
+    category: "Cold-Coffee-&-Shake",
+    description: "Chilled coffee frappe with rich flavor",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cafe-frappe.jpg",
+    variants: [{ size: "Regular", price: 99 }],
+    choices: []
+  },
+  {
+    name: "Heavenly Mocha",
+    category: "Cold-Coffee-&-Shake",
+    description: "Smooth mocha coffee drink",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/heavenly-mocha.jpg",
+    variants: [{ size: "Regular", price: 129 }],
+    choices: []
+  }
+
+]
+
+export const hot_beverage = [
+  {
+    name: "Chai Latte",
+    category: "Hot-Beverages",
+    description: "Hot spiced chai latte brewed with milk and aromatic spices",
+    image: "/menuImages/Drinks/hot-and-beverage/chai-latte.jpg",
+    variants: [
+      { size: "Regular", price: 59 }
+    ],
+    choices: []
+  },
+  {
+    name: "Coffee Latte",
+    category: "Hot-Beverages",
+    description: "Smooth hot coffee blended with steamed milk",
+    image: "/menuImages/Drinks/hot-and-beverage/coffee-latte.jpg",
+    variants: [
+      { size: "Regular", price: 59 }
+    ],
+    choices: []
+  },
+  {
+    name: "Hot Chocolate",
+    category: "Hot-Beverages",
+    description: "Rich and creamy hot chocolate made with premium cocoa",
+    image: "/menuImages/Drinks/hot-and-beverage/hot-chocolate.jpg",
+    variants: [
+      { size: "Regular", price: 99 }
+    ],
+    choices: []
+  }
+]
+
+export const smoothie = [
+  {
+    name: "Mango Smoothie",
+    category: "Smoothies",
+    description: "Fresh mango blended into a thick and refreshing smoothie",
+    image: "/menuImages/Drinks/Smoothie/mango-smoothie.jpg",
+    variants: [
+      { size: "Regular", price: 99 }
+    ],
+    choices: []
+  },
+  {
+    name: "Strawberry Smoothie",
+    category: "Smoothies",
+    description: "Sweet and refreshing strawberry smoothie made from fresh fruit",
+    image: "/menuImages/Drinks/Smoothie/strawberry-smoothie.jpg",
+    variants: [
+      { size: "Regular", price: 99 }
+    ],
+    choices: []
+  },
+  {
+    name: "Lychee Smoothie",
+    category: "Smoothies",
+    description: "Chilled lychee smoothie with a light and fruity taste",
+    image: "/menuImages/Drinks/Smoothie/lychee-smoothie.jpg",
+    variants: [
+      { size: "Regular", price: 99 }
+    ],
+    choices: []
+  }
+]
 
 export const POST = async () => {
   try {
@@ -1698,7 +1972,13 @@ export const POST = async () => {
       ...chicken,
       ...seaFood,
       ...noodles,
-      ...rice
+      ...rice,
+      ...mocktail,
+      ...sundaes,
+      ...Dessert,
+      ...Cold_Coffee_and_Shake,
+      ...hot_beverage,
+      ...smoothie
     ]);
     console.log("success")
     return NextResponse.json({

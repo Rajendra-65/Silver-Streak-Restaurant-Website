@@ -6,6 +6,7 @@ import QROrderingSection from "@/components/qr-ordering-section"
 import Footer from "@/components/footer"
 
 export default function Home() {
+
   return (
     <>
       <main className="bg-background text-foreground">
