@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useAuthGuard } from "@/hooks/useAuthGaurd";
 
 type Order = {
   _id: string;
@@ -19,6 +20,7 @@ type Order = {
 };
 
 export default function Page() {
+  useAuthGuard(["ADMIN","WAITER","KITCHEN"]);
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);

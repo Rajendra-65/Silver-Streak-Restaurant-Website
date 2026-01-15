@@ -2,12 +2,15 @@ import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 import { OrderItem } from "@/types/order";
+import { requireAuth } from "@/utils/requireAuth";
 
-export async function GET() {
+export async function GET(req:Request) {
+  const auth = requireAuth(req, ["KITCHEN"]);
+  if (auth instanceof NextResponse) return auth;
   await connectDb();
 
   const orders = await Order.find({
-    status: { $in: [ "ACTIVE"] },
+    status: { $in: ["ACTIVE"] },
     "items.status": { $in: ["PENDING", "PREPARING"] },
   }).lean();
 

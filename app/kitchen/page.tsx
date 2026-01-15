@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
+import { useAuthGuard } from "@/hooks/useAuthGaurd";
 
 type KitchenItem = {
   _id: string;
@@ -21,6 +22,7 @@ type KitchenOrder = {
 };
 
 export default function Page() {
+  useAuthGuard(["KITCHEN"])
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
   const [loading, setLoading] = useState(true);
 

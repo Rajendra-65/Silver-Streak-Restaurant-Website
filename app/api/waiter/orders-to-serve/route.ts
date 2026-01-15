@@ -2,7 +2,10 @@ import { Order } from "@/models/Order";
 import { connectDb } from "@/utils/ConnectDb";
 import { NextResponse } from "next/server";
 import {OrderItem} from "@/types/order";
-export async function GET() {
+import { requireAuth } from "@/utils/requireAuth";
+export async function GET(req: Request) {
+  const auth = requireAuth(req, ["WAITER"]);
+  if (auth instanceof NextResponse) return auth;
   await connectDb();
 
   const orders = await Order.find({

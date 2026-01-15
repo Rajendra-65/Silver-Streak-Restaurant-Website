@@ -1,0 +1,15 @@
+import { NextResponse } from "next/server";
+import { getAuthUser } from "@/utils/getAuthUser";
+
+export async function GET() {
+  const user = await getAuthUser();
+  if (!user) {
+    return NextResponse.json({ success: false }, { status: 401 });
+  }
+
+  return NextResponse.json({
+    success: true,
+    role: user.role,
+    id: user.id,
+  });
+}

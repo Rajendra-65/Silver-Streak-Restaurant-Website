@@ -2,9 +2,12 @@ import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 import { OrderItem } from "@/types/order";
+import { requireAuth } from "@/utils/requireAuth";
 
 export async function POST(req: Request) {
   try {
+    const auth = requireAuth(req, ["WAITER"]);
+    if (auth instanceof NextResponse) return auth;
     const { orderId, itemId } = await req.json();
 
     await connectDb();
@@ -26,7 +29,7 @@ export async function POST(req: Request) {
 
     // 3️⃣ ✅ CHECK IF ALL ITEMS ARE SERVED
     const allServed = order.items.every(
-      (item : OrderItem) => item.status === "SERVED"
+      (item: OrderItem) => item.status === "SERVED"
     );
 
     // 4️⃣ COMPLETE ORDER IF YES

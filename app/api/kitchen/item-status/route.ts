@@ -1,10 +1,13 @@
 import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
+import { requireAuth } from "@/utils/requireAuth";
 
 type ItemStatus = "PENDING" | "PREPARING" | "SERVED";
 
 export async function POST(req: Request) {
+  const auth = requireAuth(req, ["KITCHEN"]);
+  if (auth instanceof NextResponse) return auth;
   try {
     const { orderId, itemId, status } = (await req.json()) as {
       orderId: string;
@@ -12,7 +15,7 @@ export async function POST(req: Request) {
       status: ItemStatus;
     };
 
-    if (!["PENDING","PREPARING", "READY"].includes(status)) {
+    if (!["PENDING", "PREPARING", "READY"].includes(status)) {
       return NextResponse.json(
         { success: false, message: "Invalid status" },
         { status: 400 }

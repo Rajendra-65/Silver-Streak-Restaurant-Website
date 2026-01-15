@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
+import { useAuthGuard } from "@/hooks/useAuthGaurd";
 
 /* ---------------- TYPES ---------------- */
 
@@ -38,6 +39,7 @@ type ServeOrder = {
 /* ---------------- COMPONENT ---------------- */
 
 export default function Page() {
+  useAuthGuard(["WAITER"])
   const [tab, setTab] = useState<"CONFIRM" | "SERVE">("CONFIRM");
 
   const [confirmOrders, setConfirmOrders] = useState<ConfirmOrder[]>([]);
