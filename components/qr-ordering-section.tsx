@@ -1,6 +1,7 @@
 "use client"
 
 import { Card } from "@/components/ui/card"
+import Image from "next/image"
 
 export default function QROrderingSection() {
   return (
@@ -30,15 +31,14 @@ export default function QROrderingSection() {
             </ul>
           </div>
 
-          <Card className="bg-neutral-900 border-yellow-400/30 p-12 aspect-square flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-full h-full bg-linear-to-br from-neutral-800 to-neutral-900 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">📱</div>
-                  <p className="text-neutral-400">QR Code Placeholder</p>
-                </div>
-              </div>
-            </div>
+          <Card className="bg-neutral-900 border-yellow-400/30 aspect-square relative overflow-hidden">
+            <Image
+              src="/interior/qr-ordering-tech.jpg"
+              alt="How to order with QR code"
+              fill
+              className="object-cover"
+              priority
+            />
           </Card>
         </div>
       </div>

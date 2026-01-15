@@ -1695,7 +1695,7 @@ export const mocktail = [
     name: "Virgin Mojito",
     category: "Mocktail",
     description: "Classic virgin mojito with mint and lime",
-    image: "/menuImages/Drinks/Mocktail/virgin-mojito.jpg",
+    image: "/menuImages/Drinks/Mocktail/classic-virgin-mojito.jpg",
     variants: [{ size: "Regular", price: 99 }],
     choices: []
   },
@@ -1786,7 +1786,7 @@ export const sundaes = [
     name: "Chocolate Sundae",
     category: "Sundaes",
     description: "Classic chocolate sundae with rich sauce",
-    image: "/menuImages/Drinks/Dessert/chocolate-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/chocolate-sundae.jpg",
     variants: [{ size: "Regular", price: 99 }],
     choices: []
   },
@@ -1794,7 +1794,7 @@ export const sundaes = [
     name: "Butterscotch Sundae",
     category: "Sundaes",
     description: "Creamy butterscotch flavored sundae",
-    image: "/menuImages/Drinks/Dessert/butterscotch-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/butterscotch-sundae.jpg",
     variants: [{ size: "Regular", price: 99 }],
     choices: []
   },
@@ -1802,11 +1802,49 @@ export const sundaes = [
     name: "Nutty Chocolate Sundae",
     category: "Sundaes",
     description: "Chocolate sundae topped with crunchy nuts",
-    image: "/menuImages/Drinks/Dessert/nutty-chocolate-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/nutty-chocolate-sundae.jpg",
     variants: [{ size: "Regular", price: 99 }],
     choices: []
-  }
-
+  },
+  {
+    name: "Mango / Lychee Sundae",
+    description: "Fruit-flavored sundae with mango or lychee",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Sundae/fruit-flavored-mango.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    spicy: false
+  },
+  {
+    id: "strawberry-sundae",
+    name: "Strawberry Sundae",
+    description: "Strawberry flavored ice cream sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Sundae/strawberry-sundae.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    spicy: false
+  },
+  {
+    id: "fruit-sundae",
+    name: "Fruit Sundae",
+    description: "Mixed fruit ice cream sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Sundae/fruit-sundae.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    spicy: false
+  },
+  {
+    id: "caramel-sundae",
+    name: "Caramel Sundae",
+    description: "Sweet caramel flavored sundae",
+    price: 89,
+    category: "Sundaes",
+    image: "/menuImages/Drinks/Sundae/caramel-sundae.jpg",
+    variants: [{ size: "Regular", price: 89 }],
+    spicy: false
+  },
 ]
 
 export const Dessert = [
@@ -1877,7 +1915,7 @@ export const Cold_Coffee_and_Shake = [
     name: "Cafe Frappe",
     category: "Cold-Coffee-&-Shake",
     description: "Chilled coffee frappe with rich flavor",
-    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cafe-frappe.jpg",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cofee-frape.jpg",
     variants: [{ size: "Regular", price: 99 }],
     choices: []
   },
@@ -1888,8 +1926,23 @@ export const Cold_Coffee_and_Shake = [
     image: "/menuImages/Drinks/Cold-Cofee-and-shake/heavenly-mocha.jpg",
     variants: [{ size: "Regular", price: 129 }],
     choices: []
-  }
-
+  },
+  {
+    name: "Choco Frappe",
+    category: "Cold-Coffee-&-Shake",
+    description: "Chocolate flavored frappe",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/choco-frappe.jpg",
+    variants : [{size: "Regular", price: 129}],
+    choices  : []
+  },
+  {
+    name: "Thick Velvet Choco Shake",
+    category: "Cold-Coffee-&-Shake",
+    description: "Thick and creamy chocolate shake",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/thick-velvet-choco-shake.jpg",
+    variants : [{size : "Regular", price: 109}],
+    choices : []
+  },
 ]
 
 export const hot_beverage = [
@@ -1907,7 +1960,7 @@ export const hot_beverage = [
     name: "Coffee Latte",
     category: "Hot-Beverages",
     description: "Smooth hot coffee blended with steamed milk",
-    image: "/menuImages/Drinks/hot-and-beverage/coffee-latte.jpg",
+    image: "/menuImages/Drinks/hot-and-beverage/cofee-latte.jpg",
     variants: [
       { size: "Regular", price: 59 }
     ],
@@ -1979,7 +2032,7 @@ export const POST = async () => {
       ...Cold_Coffee_and_Shake,
       ...hot_beverage,
       ...smoothie
-    ]);
+    ],{ordered : false});
     console.log("success")
     return NextResponse.json({
       sucess: true
@@ -1987,6 +2040,9 @@ export const POST = async () => {
   }
   catch (e) {
     console.log(e)
+    return NextResponse.json({
+      sucess: false
+    })
   }
 
 

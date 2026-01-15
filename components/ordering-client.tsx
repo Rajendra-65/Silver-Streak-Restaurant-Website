@@ -18,14 +18,22 @@ export default function OrderingClient({ table, menu }: Props) {
     );
 
     const [addedToCart, setAddedToCart] = useState(false)
+    const [activeCategory, setActiveCategory] = useState<string>(categories[0]);
 
     return (
         <div className="bg-neutral-950 text-white">
             {/* CATEGORY BAR */}
             <div className="sticky top-0 z-50 bg-black p-3 flex gap-3 overflow-x-scroll">
                 {categories.map((cat) => (
-                    <a key={cat} href={`#${cat}`} className="text-sm whitespace-nowrap">
-                        <Button>
+                    <a key={cat} href={`#${cat}`} onClick={() => setActiveCategory(cat)} className="text-sm whitespace-nowrap">
+                        <Button
+                            variant={activeCategory === cat ? "default" : "outline"}
+                            className={
+                                activeCategory === cat
+                                    ? "bg-white text-black"
+                                    : "bg-transparent text-white border-white/30"
+                            }
+                        >
                             {cat}
                         </Button>
                     </a>

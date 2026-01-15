@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Footer from "@/components/footer"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
 
 interface MenuItem {
   id: string
@@ -1309,7 +1310,7 @@ const menuItems: MenuItem[] = [
     description: "Classic virgin mojito with mint and lime",
     price: 99,
     category: "Mocktail",
-    image: "/menuImages/Drinks/Mocktail/virgin-mojito.jpg",
+    image: "/menuImages/Drinks/Mocktail/classic-virgin-mojito.jpg",
     spicy: false
   },
   {
@@ -1410,7 +1411,7 @@ const menuItems: MenuItem[] = [
     description: "Classic chocolate sundae with rich sauce",
     price: 99,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/chocolate-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/chocolate-sundae.jpg",
     spicy: false
   },
   {
@@ -1419,7 +1420,7 @@ const menuItems: MenuItem[] = [
     description: "Creamy butterscotch flavored sundae",
     price: 99,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/butterscotch-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/butterscotch-sundae.jpg",
     spicy: false
   },
   {
@@ -1428,7 +1429,7 @@ const menuItems: MenuItem[] = [
     description: "Chocolate sundae topped with crunchy nuts",
     price: 99,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/nutty-chocolate-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/nutty-chocolate-sundae.jpg",
     spicy: false
   },
   {
@@ -1437,7 +1438,7 @@ const menuItems: MenuItem[] = [
     description: "Fruit-flavored sundae with mango or lychee",
     price: 89,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/fruit-flavored-mango.jpg",
+    image: "/menuImages/Drinks/Sundae/fruit-flavored-mango.jpg",
     spicy: false
   },
   {
@@ -1446,7 +1447,7 @@ const menuItems: MenuItem[] = [
     description: "Strawberry flavored ice cream sundae",
     price: 89,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/strawberry-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/strawberry-sundae.jpg",
     spicy: false
   },
   {
@@ -1455,7 +1456,7 @@ const menuItems: MenuItem[] = [
     description: "Mixed fruit ice cream sundae",
     price: 89,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/fruit-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/fruit-sundae.jpg",
     spicy: false
   },
   {
@@ -1464,10 +1465,11 @@ const menuItems: MenuItem[] = [
     description: "Sweet caramel flavored sundae",
     price: 89,
     category: "Sundaes",
-    image: "/menuImages/Drinks/Dessert/caramel-sundae.jpg",
+    image: "/menuImages/Drinks/Sundae/caramel-sundae.jpg",
     spicy: false
   },
 
+  
   // Dessert
   {
     id: "caramel-fudge-brownie",
@@ -1531,7 +1533,7 @@ const menuItems: MenuItem[] = [
     description: "Chilled coffee frappe with rich flavor",
     price: 99,
     category: "Cold-Coffee-&-Shake",
-    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cafe-frappe.jpg",
+    image: "/menuImages/Drinks/Cold-Cofee-and-shake/cofee-frape.jpg",
     spicy: false
   },
   {
@@ -1579,7 +1581,7 @@ const menuItems: MenuItem[] = [
     description: "Hot coffee with milk",
     price: 59,
     category: "Hot-Beverages",
-    image: "/menuImages/Drinks/hot-and-beverage/coffee-latte.jpg",
+    image: "/menuImages/Drinks/hot-and-beverage/cofee-latte.jpg",
     spicy: false
   },
   {
@@ -1593,7 +1595,7 @@ const menuItems: MenuItem[] = [
   },
 
   // smoothie
-  
+
   {
     id: "mango-smoothie",
     name: "Mango Smoothie",
@@ -1621,10 +1623,6 @@ const menuItems: MenuItem[] = [
     image: "/menuImages/Drinks/Smoothie/lychee-smoothie.jpg",
     spicy: false
   }
-
-
-
-
 ]
 
 const categories = ["All Items", ...Array.from(new Set(menuItems.map((item) => item.category)))]
@@ -1653,22 +1651,26 @@ export default function Menu() {
         </section>
 
         {/* Menu Content */}
-        <section className="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-t-white">
+        <section className="py-16  md:px-8 max-w-7xl mx-auto border-t border-t-white">
           {/* Category Filter */}
           <div className="mb-12">
             <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-2 rounded-full font-semibold transition-all ${selectedCategory === category
-                    ? "bg-primary text-primary-foreground shadow-lg"
-                    : "bg-card text-foreground hover:bg-border"
-                    }`}
-                >
-                  {category}
-                </button>
-              ))}
+              <div className="sticky top-0 z-50 bg-black p-3 flex gap-3 overflow-x-scroll">
+                {categories.map((cat) => (
+                  <a key={cat} href={`#${cat}`} onClick={() => setSelectedCategory(cat)} className="text-sm whitespace-nowrap">
+                    <Button
+                      variant={selectedCategory === cat ? "default" : "outline"}
+                      className={
+                        selectedCategory === cat
+                          ? "bg-white text-black hover:bg-white/10"
+                          : "bg-transparent text-white border-white/30"
+                      }
+                    >
+                      {cat}
+                    </Button>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
