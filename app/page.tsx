@@ -13,12 +13,6 @@ export default function Home() {
   return (
     <>
       <main className="bg-background text-foreground">
-        <Button
-          variant="destructive"
-          onClick = {() =>{pushToDb()}}
-        >
-          Push To Db
-        </Button>
         <HeroSection />
         <AboutSection />
         <PopularDishesSection />
