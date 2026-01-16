@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 import { Menu } from "@/models/Menu";
-
+import { pusher } from "@/utils/pusher";
 /* ---------- TYPES ---------- */
 
 type CalculatedOrderItem = {
@@ -117,6 +117,11 @@ export async function POST(req: Request) {
       order.status = "ACTIVE"
       await order.save();
 
+      pusher.trigger("orders", "order:placed", {
+        orderId: order._id,
+        table,
+      });
+
       return NextResponse.json({
         success: true,
         orderId: order._id,
@@ -125,23 +130,23 @@ export async function POST(req: Request) {
         appended: true,
       });
     }
-
     /* ---------- CREATE ORDER (ONLY FIRST TIME) ---------- */
+    else {
+      order = await Order.create({
+        table,
+        items: calculatedItems,
+        grandTotal: addedTotal,
+        status: "PLACED",
+      });
+      return NextResponse.json({
+        success: true,
+        orderId: order._id,
+        items: order.items,
+        grandTotal: order.grandTotal,
+        appended: false,
+      });
+    }
 
-    order = await Order.create({
-      table,
-      items: calculatedItems,
-      grandTotal: addedTotal,
-      status: "PLACED",
-    });
-
-    return NextResponse.json({
-      success: true,
-      orderId: order._id,
-      items: order.items,
-      grandTotal: order.grandTotal,
-      appended: false,
-    });
   } catch (error) {
     console.error("ORDER ERROR:", error);
     return NextResponse.json(

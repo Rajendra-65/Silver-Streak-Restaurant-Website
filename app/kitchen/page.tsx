@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
 import { useAuthGuard } from "@/hooks/useAuthGaurd";
+import { pusherClient } from "@/utils/pusherClient";
 
 type KitchenItem = {
   _id: string;
@@ -22,40 +23,58 @@ type KitchenOrder = {
 };
 
 export default function Page() {
-  useAuthGuard(["KITCHEN"])
+  useAuthGuard(["KITCHEN"]);
+
   const [orders, setOrders] = useState<KitchenOrder[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchOrders = async () => {
-    setLoading(true);
+  const fetchOrders = useCallback(async () => {
     const res = await fetch("/api/kitchen/orders");
     const data = await res.json();
     setOrders(data.orders || []);
-    setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     let mounted = true;
 
     const load = async () => {
-      if (!mounted) return;
+      setLoading(true);
       await fetchOrders();
+      if (mounted) setLoading(false);
     };
 
-    load(); // initial fetch
-
-    const interval = setInterval(() => {
-      if (mounted) {
-        fetchOrders();
-      }
-    }, 5000);
+    load();
 
     return () => {
       mounted = false;
-      clearInterval(interval);
     };
-  }, []);
+  }, [fetchOrders]);
 
+
+  /* ---------------- REALTIME: WAITER → KITCHEN ---------------- */
+  useEffect(() => {
+    const channel = pusherClient.subscribe("orders");
+
+    channel.bind(
+      "order:confirmed",
+      (data: { orderId: string; table: string }) => {
+        console.log("🔥 New confirmed order", data);
+
+        toast.success(`New order for Table ${data.table}`);
+        playPlaceOrderNotificationSound();
+
+        // Re-fetch to get full order with items
+        fetchOrders();
+      }
+    );
+
+    return () => {
+      channel.unbind_all();
+      pusherClient.unsubscribe("orders");
+    };
+  }, [fetchOrders]);
+
+  /* ---------------- UPDATE ITEM STATUS ---------------- */
   const updateStatus = async (
     orderId: string,
     itemId: string,
@@ -67,11 +86,9 @@ export default function Page() {
       body: JSON.stringify({ orderId, itemId, status }),
     });
 
-
-
-    fetchOrders();
     playPlaceOrderNotificationSound();
-    toast.success("Status Updated Successfully");
+    toast.success("Status updated");
+    fetchOrders();
   };
 
   if (loading) {
@@ -80,7 +97,6 @@ export default function Page() {
 
   return (
     <div className="p-4 bg-neutral-950 min-h-screen space-y-6">
-      {/* HEADER */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-accent">
           Kitchen Window
@@ -94,7 +110,6 @@ export default function Page() {
         <p className="text-gray-400">No active orders</p>
       )}
 
-      {/* ORDERS */}
       {orders.map(order => (
         <div
           key={order._id}
@@ -107,7 +122,10 @@ export default function Page() {
           {order.items.map(item => (
             <div
               key={item._id}
-              className="flex justify-between items-center bg-neutral-900 p-3 rounded"
+              className={`flex justify-between items-center p-3 rounded ${item.status === "READY"
+                ? "bg-green-600/20 border border-green-500"
+                : "bg-neutral-900"
+                }`}
             >
               <div>
                 <p className="font-medium text-accent">
@@ -115,28 +133,33 @@ export default function Page() {
                 </p>
                 <p className="text-sm text-gray-400">
                   {item.size}
-                  {item.choice && ` • ${item.choice}`} × {item.quantity}
+                  {item.choice && ` • ${item.choice}`} ×{" "}
+                  {item.quantity}
                 </p>
               </div>
 
               {item.status === "PENDING" ? (
                 <Button
-                  className="bg-yellow-500 text-black hover:bg-yellow-600"
+                  className="bg-yellow-500 text-black"
                   onClick={() =>
                     updateStatus(order._id, item._id, "PREPARING")
                   }
                 >
                   Start
                 </Button>
-              ) : (
+              ) : item.status === "PREPARING" ? (
                 <Button
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-green-600"
                   onClick={() =>
                     updateStatus(order._id, item._id, "READY")
                   }
                 >
                   READY
                 </Button>
+              ) : (
+                <span className="text-green-400 font-semibold">
+                  Done
+                </span>
               )}
             </div>
           ))}

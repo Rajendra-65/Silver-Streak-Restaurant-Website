@@ -3,13 +3,14 @@ import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 import { OrderItem } from "@/types/order";
 import { requireAuth } from "@/utils/requireAuth";
+import { pusher } from "@/utils/pusher";
 
 export async function POST(req: Request) {
   try {
     const auth = requireAuth(req, ["WAITER"]);
     if (auth instanceof NextResponse) return auth;
-    const { orderId, itemId } = await req.json();
 
+    const { orderId, itemId } = await req.json();
     await connectDb();
 
     // 1️⃣ Mark item as SERVED
@@ -27,15 +28,24 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3️⃣ ✅ CHECK IF ALL ITEMS ARE SERVED
+    // 🔔 3️⃣ Notify CUSTOMER: item served
+    await pusher.trigger(`order-${orderId}`, "item-served", {
+      itemId,
+    });
+
+    // 4️⃣ Check if all items are SERVED
     const allServed = order.items.every(
       (item: OrderItem) => item.status === "SERVED"
     );
 
-    // 4️⃣ COMPLETE ORDER IF YES
+    // 🔔 5️⃣ Complete order & notify
     if (allServed) {
       order.status = "COMPLETED";
       await order.save();
+
+      await pusher.trigger(`order-${orderId}`, "order-completed", {
+        orderId,
+      });
     }
 
     return NextResponse.json({ success: true });

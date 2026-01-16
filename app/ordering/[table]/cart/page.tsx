@@ -8,8 +8,13 @@ import { useCallback, useEffect, useState } from "react";
 import { CartItem } from "@/types/cart";
 import { toast } from "sonner";
 import { playPlaceOrderNotificationSound } from "@/utils/playSound";
+import { pusherClient } from "@/utils/pusherClient";
 
 type OrderStatus = "PLACED" | "ACTIVE" | "COMPLETED";
+
+type OrderItemWithStatus = CartItem & {
+  status?: "PENDING" | "PREPARING" | "READY" | "SERVED";
+};
 
 export default function Page() {
   const { cart, clearCart, removeFromCart } = useCart();
@@ -19,31 +24,27 @@ export default function Page() {
   const [placing, setPlacing] = useState(false);
   const [placeSuccess, setPlaceSuccess] = useState(false);
   const [successOrderId, setSuccessOrderId] = useState<string>();
-  const [orderItems, setOrderItems] = useState<CartItem[]>([]);
+  const [orderItems, setOrderItems] = useState<OrderItemWithStatus[]>([]);
   const [grandTotal, setGrandTotal] = useState<number>(0);
   const [orderStatus, setOrderStatus] =
     useState<OrderStatus>("PLACED");
 
-  /* ---------------- FETCH EXISTING ORDER (IF ANY) ---------------- */
+  /* ---------------- FETCH EXISTING ORDER ---------------- */
   const fetchOrderOfTheTable = useCallback(async () => {
-    try {
-      const res = await fetch("/api/orders/find-table", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ table }),
-      });
+    const res = await fetch("/api/orders/find-table", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table }),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (data.success && data.order) {
-        setOrderItems(data.order.items);
-        setGrandTotal(data.order.grandTotal);
-        setOrderStatus(data.order.status);
-        setSuccessOrderId(data.order._id);
-        setPlaceSuccess(true);
-      }
-    } catch (err) {
-      console.error(err);
+    if (data.success && data.order) {
+      setOrderItems(data.order.items);
+      setGrandTotal(data.order.grandTotal);
+      setOrderStatus(data.order.status);
+      setSuccessOrderId(data.order._id);
+      setPlaceSuccess(true);
     }
   }, [table]);
 
@@ -51,8 +52,68 @@ export default function Page() {
     fetchOrderOfTheTable();
   }, [fetchOrderOfTheTable]);
 
+  /* ---------------- REALTIME PUSHER (KITCHEN → CUSTOMER) (waiter->customer) ---------------- */
+  useEffect(() => {
+    if (!successOrderId) return;
 
-  /* ---------------- POLL ORDER STATUS ---------------- */
+    const channelName = `order-${successOrderId}`;
+    const channel = pusherClient.subscribe(channelName);
+
+    console.log("📡 Subscribed to", channelName);
+
+    // 🟡 Kitchen → READY
+    channel.bind("item-ready", (data: { itemId: string }) => {
+      setOrderItems(prev =>
+        prev.map(item =>
+          item._id === data.itemId
+            ? { ...item, status: "READY" }
+            : item
+        )
+      );
+
+      playPlaceOrderNotificationSound();
+      toast.success("Your item is ready 🍽️");
+    });
+
+    channel.bind("item-preparing",(data: { itemId: string }) => {
+      setOrderItems(prev =>
+        prev.map(item =>
+          item._id === data.itemId
+          ? {...item , status : "PREPARING"}
+          : item
+        )
+      )
+
+      playPlaceOrderNotificationSound();
+      toast.success("item preparation started 🍽️");
+    })
+
+    // 🟢 Waiter → SERVED
+    channel.bind("item-served", (data: { itemId: string }) => {
+      setOrderItems(prev =>
+        prev.map(item =>
+          item._id === data.itemId
+            ? { ...item, status: "SERVED" }
+            : item
+        )
+      );
+
+      toast.success("Item served to your table ✅");
+    });
+
+    // 🏁 Order completed
+    channel.bind("order-completed", () => {
+      setOrderStatus("COMPLETED");
+      toast.success("Order completed 🎉 Please pay at counter");
+    });
+
+    return () => {
+      channel.unbind_all();
+      pusherClient.unsubscribe(channelName);
+    };
+  }, [successOrderId]);
+
+  /* ---------------- FALLBACK POLLING (ORDER STATUS) ---------------- */
   const fetchOrderStatus = useCallback(async () => {
     const res = await fetch("/api/orders/table-status", {
       method: "POST",
@@ -65,19 +126,17 @@ export default function Page() {
   }, [table]);
 
   useEffect(() => {
-    const interval = setInterval(fetchOrderStatus, 5000);
-
+    const interval = setInterval(fetchOrderStatus, 7000);
     return () => clearInterval(interval);
-  }, [fetchOrderStatus]); // 👈 dependency added
+  }, [fetchOrderStatus]);
 
-
-  /* ---------------- UI TOTAL (NOT TRUSTED) ---------------- */
+  /* ---------------- UI TOTAL ---------------- */
   const displayTotal = cart.reduce(
     (sum, item) => sum + item.unitPrice * item.quantity,
     0
   );
 
-  /* ---------------- PLACE / APPEND ORDER ---------------- */
+  /* ---------------- PLACE ORDER ---------------- */
   const placeOrder = async () => {
     if (cart.length === 0) return;
 
@@ -99,8 +158,6 @@ export default function Page() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
-      if (!res.ok) throw new Error("Order failed");
 
       const data = await res.json();
 
@@ -126,13 +183,12 @@ export default function Page() {
   };
 
   /* ===============================================================
-     ORDER SUMMARY VIEW (AFTER ORDER IS PLACED / EXISTS)
+     ORDER SUMMARY (LIVE STATUS)
      =============================================================== */
   if (cart.length === 0 && placeSuccess) {
     return (
       <div className="bg-neutral-950 min-h-screen p-4">
         <div className="max-w-lg mx-auto border border-neutral-800 rounded p-4 space-y-4">
-          {/* HEADER */}
           <div className="flex justify-between items-center">
             <h1 className="text-accent font-semibold">
               Order #{successOrderId}
@@ -144,87 +200,62 @@ export default function Page() {
 
           <p className="text-accent text-sm">Table {table}</p>
 
-          {/* ITEMS */}
+          {/* ITEMS WITH LIVE STATUS */}
           <div className="space-y-2">
             {orderItems.map((item) => (
               <div
                 key={`${item.id}-${item.size}-${item.choice}`}
-                className="grid grid-cols-6 gap-2 text-sm text-accent bg-neutral-900 rounded px-2 py-2"
+                className="flex justify-between items-center bg-neutral-900 rounded px-3 py-2"
               >
-                <span className="truncate col-span-2">
-                  {item.name}
-                </span>
-                <span>{item.size}</span>
-                <span>{item.choice || "-"}</span>
-                <span className="text-center">
-                  {item.quantity}
-                </span>
-                <span className="text-right col-span-2">
-                  ₹ {item.totalPrice}
+                <div>
+                  <p className="text-accent font-medium">
+                    {item.name}
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    {item.size}
+                    {item.choice && ` • ${item.choice}`} ×{" "}
+                    {item.quantity}
+                  </p>
+                </div>
+                <span
+                  className={`text-xs px-2 py-1 rounded ${item.status === "READY"
+                      ? "bg-green-600/20 text-green-400"
+                      : item.status === "SERVED"
+                        ? "bg-blue-600/20 text-blue-400"
+                        : "bg-yellow-600/20 text-yellow-400"
+                    }`}
+                >
+                  {item.status}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* TOTAL */}
           <div className="flex justify-between font-semibold text-accent">
             <span>Grand Total</span>
             <span>₹ {grandTotal}</span>
           </div>
 
-          {/* STATUS MESSAGE */}
-          <div className="text-center space-y-2 pt-2">
-            {orderStatus === "PLACED" && (
-              <p className="text-yellow-400">
-                Waiting for waiter confirmation…
-              </p>
-            )}
-            {orderStatus === "ACTIVE" && (
-              <p className="text-yellow-400">
-                Your food is being prepared 🍳
-              </p>
-            )}
-            {orderStatus === "COMPLETED" && (
-              <p className="text-green-400">
-                Order completed. Please pay at counter.
-              </p>
-            )}
-
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => router.push(`/ordering/${table}`)}
-            >
-              + Add More Items
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => router.push(`/ordering/${table}`)}
+          >
+            + Add More Items
+          </Button>
         </div>
       </div>
     );
   }
 
   /* ===============================================================
-     NORMAL CART VIEW
+     NORMAL CART VIEW (UNCHANGED)
      =============================================================== */
   return (
     <div className="p-4 bg-neutral-950 min-h-screen space-y-4">
       <h1 className="text-xl font-semibold text-accent">
         Your Cart
       </h1>
-
-      {cart.length === 0 && !placeSuccess && (
-        <>
-          <p className="text-gray-400">
-            Your cart is empty
-          </p>
-          <Button
-            className="w-full bg-green-600 disabled:opacity-50"
-            onClick={() => { router.push(`/ordering/${table}`) }}
-          >
-            Add Item
-          </Button>
-        </>
-      )}
 
       {cart.map((item) => (
         <div
@@ -247,10 +278,10 @@ export default function Page() {
               ₹ {item.unitPrice} × {item.quantity}
             </p>
           </div>
+
           <button
             onClick={() => removeFromCart(item.id)}
-            className="text-red-400 hover:text-red-600 transition text-xl px-2"
-            aria-label="Remove item"
+            className="text-red-400 hover:text-red-600 text-xl"
           >
             ✕
           </button>
@@ -259,23 +290,17 @@ export default function Page() {
 
       {cart.length > 0 && (
         <>
-          <div className="flex justify-between font-semibold text-lg text-accent">
+          <div className="flex justify-between font-semibold text-accent">
             <span>Total</span>
             <span>₹ {displayTotal}</span>
           </div>
 
           <Button
-            className="w-full bg-green-600 disabled:opacity-50"
+            className="w-full bg-green-600"
             onClick={placeOrder}
             disabled={placing}
           >
-            {placing ? "Placing Order…" : "Place Order"}
-          </Button>
-          <Button
-            className="w-full bg-green-600 disabled:opacity-50"
-            onClick={() => { router.push(`/ordering/${table}`) }}
-          >
-            Add More Item
+            {placing ? "Placing…" : "Place Order"}
           </Button>
         </>
       )}

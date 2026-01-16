@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { connectDb } from "@/utils/ConnectDb";
 import { Order } from "@/models/Order";
 import { requireAuth } from "@/utils/requireAuth";
+import { pusher } from "@/utils/pusher";
 
-type ItemStatus = "PENDING" | "PREPARING" | "SERVED";
+type ItemStatus = "PENDING" | "PREPARING" | "READY";
 
 export async function POST(req: Request) {
   const auth = requireAuth(req, ["KITCHEN"]);
   if (auth instanceof NextResponse) return auth;
+
   try {
     const { orderId, itemId, status } = (await req.json()) as {
       orderId: string;
@@ -38,13 +40,43 @@ export async function POST(req: Request) {
       );
     }
 
-    // 3️⃣ Fetch order
-    const order = await Order.findById(orderId);
+    // 3️⃣ Fetch order (for table info)
+    const order = await Order.findById(orderId).lean();
     if (!order) {
       return NextResponse.json(
         { success: false, message: "Order not found" },
         { status: 404 }
       );
+    }
+
+    // 🔔 4️⃣ PUSHER EVENT (FIXED)
+    await pusher.trigger("kitchen", "item-status-updated", {
+      orderId: orderId.toString(),
+      itemId: itemId.toString(), // ✅ FIX
+      status,
+      table: order.table,
+    });
+
+    // 🔔 5️⃣ READY EVENT (FIXED)
+    if (status === "READY") {
+      await pusher.trigger("waiter", "item-ready", {
+        orderId: orderId.toString(),
+        itemId: itemId.toString(), // ✅ FIX
+        table: order.table,
+      });
+
+      await pusher.trigger(`order-${orderId}`, "item-ready", {
+        itemId: itemId.toString(), // ✅ FIX
+        table: order.table,
+      });
+    }
+
+    if (status === "PREPARING" && order) {
+      await pusher.trigger(`order-${order._id.toString()}`, "item-preparing", {
+        itemId: itemId.toString(),
+        status: "PREPARING",
+        table: order.table,
+      });
     }
 
     return NextResponse.json({ success: true });
