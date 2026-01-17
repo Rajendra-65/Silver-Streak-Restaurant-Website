@@ -46,6 +46,11 @@ export async function POST(req: Request) {
       await pusher.trigger(`order-${orderId}`, "order-completed", {
         orderId,
       });
+
+      await pusher.trigger("admin", "orders:completed", {
+        orderId,
+        table: order.table,
+      });
     }
 
     return NextResponse.json({ success: true });

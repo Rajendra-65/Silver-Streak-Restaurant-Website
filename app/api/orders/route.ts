@@ -117,9 +117,14 @@ export async function POST(req: Request) {
       order.status = "ACTIVE"
       await order.save();
 
-      pusher.trigger("orders", "order:placed", {
+      await pusher.trigger("orders", "order:placed", {
         orderId: order._id,
         table,
+      });
+
+      await pusher.trigger("admin", "orders:updated", {
+        orderId: order._id,
+        table: order.table,
       });
 
       return NextResponse.json({
@@ -137,6 +142,10 @@ export async function POST(req: Request) {
         items: calculatedItems,
         grandTotal: addedTotal,
         status: "PLACED",
+      });
+      await pusher.trigger("admin", "orders:new", {
+        orderId: order._id,
+        table: order.table,
       });
       return NextResponse.json({
         success: true,

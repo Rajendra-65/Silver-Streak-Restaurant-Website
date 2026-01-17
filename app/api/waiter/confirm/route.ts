@@ -22,9 +22,13 @@ export async function POST(req: Request) {
 
   pusher.trigger("orders", "order:confirmed", {
     orderId,
-    table : updated_order.table,
+    table: updated_order.table,
   });
 
+  await pusher.trigger("admin", "orders:confirmed", {
+    orderId,
+    table: updated_order.table,
+  });
 
   return NextResponse.json({ success: true });
 }

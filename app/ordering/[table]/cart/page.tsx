@@ -16,6 +16,8 @@ type OrderItemWithStatus = CartItem & {
   status?: "PENDING" | "PREPARING" | "READY" | "SERVED";
 };
 
+type PaymentStatus = "UNPAID" | "PAID"
+
 export default function Page() {
   const { cart, clearCart, removeFromCart } = useCart();
   const { table } = useParams<{ table: string }>();
@@ -28,6 +30,73 @@ export default function Page() {
   const [grandTotal, setGrandTotal] = useState<number>(0);
   const [orderStatus, setOrderStatus] =
     useState<OrderStatus>("PLACED");
+  const [paymentStatus, setPaymentStatus] =
+    useState<PaymentStatus>("UNPAID")
+  const [askForBill,setAskForBill] = useState(false)
+
+  /* ---------------- PAY NOW ---------------- */
+
+  const payNow = async () => {
+    try {
+      const res = await fetch("/api/payment/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: successOrderId }),
+      });
+
+      const data = await res.json();
+
+      if (!data.success) {
+        toast.error("Unable to initiate payment");
+        return;
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
+        amount: data.amount * 100,
+        currency: "INR",
+        name: "Silver Streak Restaurant",
+        description: `Table ${table} Payment`,
+        order_id: data.razorpayOrderId,
+
+        handler: async (response: any) => {
+          const verifyRes = await fetch("/api/payment/verify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }),
+          });
+
+          const verifyData = await verifyRes.json();
+
+          if (verifyData.success) {
+            toast.success("Payment successful 🎉");
+            setPaymentStatus("PAID")
+            router.refresh();
+          } else {
+            toast.error("Payment verification failed");
+          }
+        },
+
+        theme: {
+          color: "#16a34a",
+        },
+      };
+
+      // @ts-ignore
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (err) {
+      console.error(err);
+      toast.error("Payment failed");
+    }
+  };
+
+
+
 
   /* ---------------- FETCH EXISTING ORDER ---------------- */
   const fetchOrderOfTheTable = useCallback(async () => {
@@ -75,12 +144,12 @@ export default function Page() {
       toast.success("Your item is ready 🍽️");
     });
 
-    channel.bind("item-preparing",(data: { itemId: string }) => {
+    channel.bind("item-preparing", (data: { itemId: string }) => {
       setOrderItems(prev =>
         prev.map(item =>
           item._id === data.itemId
-          ? {...item , status : "PREPARING"}
-          : item
+            ? { ...item, status: "PREPARING" }
+            : item
         )
       )
 
@@ -104,7 +173,7 @@ export default function Page() {
     // 🏁 Order completed
     channel.bind("order-completed", () => {
       setOrderStatus("COMPLETED");
-      toast.success("Order completed 🎉 Please pay at counter");
+      toast.success("Order completed 🎉");
     });
 
     return () => {
@@ -126,7 +195,7 @@ export default function Page() {
   }, [table]);
 
   useEffect(() => {
-    const interval = setInterval(fetchOrderStatus, 7000);
+    const interval = setInterval(fetchOrderStatus, 15000);
     return () => clearInterval(interval);
   }, [fetchOrderStatus]);
 
@@ -135,6 +204,10 @@ export default function Page() {
     (sum, item) => sum + item.unitPrice * item.quantity,
     0
   );
+
+  const payByCash = () => {
+    toast.success("Thank You... Visit Again")
+  }
 
   /* ---------------- PLACE ORDER ---------------- */
   const placeOrder = async () => {
@@ -219,10 +292,10 @@ export default function Page() {
                 </div>
                 <span
                   className={`text-xs px-2 py-1 rounded ${item.status === "READY"
-                      ? "bg-green-600/20 text-green-400"
-                      : item.status === "SERVED"
-                        ? "bg-blue-600/20 text-blue-400"
-                        : "bg-yellow-600/20 text-yellow-400"
+                    ? "bg-green-600/20 text-green-400"
+                    : item.status === "SERVED"
+                      ? "bg-blue-600/20 text-blue-400"
+                      : "bg-yellow-600/20 text-yellow-400"
                     }`}
                 >
                   {item.status}
@@ -235,14 +308,39 @@ export default function Page() {
             <span>Grand Total</span>
             <span>₹ {grandTotal}</span>
           </div>
+          {orderStatus === "COMPLETED" && paymentStatus === "UNPAID" && (
+            <div className="space-y-3">
+              <Button
+                className="w-full bg-green-600"
+                onClick={payNow}
+              >
+                Pay online
+              </Button>
 
-          <Button
-            variant="outline"
-            className="w-full"
-            onClick={() => router.push(`/ordering/${table}`)}
-          >
-            + Add More Items
-          </Button>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={()=>{payByCash()}}
+              >
+                Paid cash at counter
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => router.push(`/ordering/${table}`)}
+              >
+                + Add More Items
+              </Button>
+            </div>
+          )}
+          {orderStatus === "COMPLETED" && paymentStatus === "PAID" && (
+            <Button
+              className = "w-full bg-green-600"
+            >
+              Download Bill
+            </Button>
+          )}
         </div>
       </div>
     );

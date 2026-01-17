@@ -1,24 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
-const orderItemSchema = new Schema(
-  {
-    itemId: { type: Schema.Types.ObjectId, ref: "Menu" },
-    name: String,
-    size: String,
-    choice: String,
-    quantity: Number,
-    unitPrice: Number,
-    totalPrice: Number,
-
-    status: {
-      type: String,
-      enum: ["PENDING", "PREPARING", "READY", "SERVED"],
-      default: "PENDING",
-    },
+const orderItemSchema = new mongoose.Schema({
+  name: String,
+  size: String,
+  choice: String,
+  quantity: Number,
+  unitPrice: Number,
+  totalPrice: Number,
+  status: {
+    type: String,
+    enum: ["PENDING", "PREPARING", "READY", "SERVED"],
+    default: "PENDING",
   },
-  { _id: true }
-);
-
+});
 
 const orderSchema = new Schema(
   {
@@ -39,9 +33,34 @@ const orderSchema = new Schema(
       type: Number,
       required: true,
     },
+
+    payment: {
+      method: {
+        type: String,
+        enum: ["ONLINE", "CASH"],
+        default: "ONLINE",
+      },
+      razorpayOrderId: String,
+      razorpayPaymentId: String,
+      razorpaySignature: String,
+      status: {
+        type: String,
+        enum: ["PENDING", "SUCCESS", "FAILED"],
+        default: "PENDING",
+      },
+    },
+
+    bill: {
+      type: {
+        type: String,
+        enum: ["E_BILL", "PHYSICAL"],
+      },
+      billNumber: String,
+      billUrl: String, // PDF link (only for e-bill)
+      generatedAt: Date,
+    },
   },
   { timestamps: true }
 );
 
-export const Order =
-  mongoose.models.Order || mongoose.model("Order", orderSchema);
+export const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);

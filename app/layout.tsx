@@ -1,11 +1,7 @@
-import type React from "react"
 import type { Metadata } from "next"
-// import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import Navbar from "@/components/navbar"
-
-// const _geist = Geist({ subsets: ["latin"] })
-// const _geistMono = Geist_Mono({ subsets: ["latin"] })
 import { CartProvider } from "../context/cart-context"
 import { Toaster } from "sonner"
 
@@ -35,17 +31,25 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased bg-neutral-950`}>
-        <Navbar/>
+      <body className="font-sans antialiased bg-neutral-950">
+        
+        {/* Razorpay Script */}
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="afterInteractive"
+        />
+
         <CartProvider>
+          <Navbar />
           {children}
           <Toaster position="top-right" richColors />
         </CartProvider>
+
       </body>
     </html>
   )

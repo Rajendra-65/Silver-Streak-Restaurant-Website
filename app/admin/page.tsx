@@ -1,8 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { useAuthGuard } from "@/hooks/useAuthGaurd";
+import { pusherClient } from "@/utils/pusherClient";
+import { toast } from "sonner";
+
+type OrderItem = {
+  name: string;
+  quantity: number;
+  size: string;
+  choice?: string;
+  status: string;
+};
 
 type Order = {
   _id: string;
@@ -10,60 +20,62 @@ type Order = {
   status: "PLACED" | "ACTIVE" | "COMPLETED";
   grandTotal: number;
   createdAt: string;
-  items: {
-    name: string;
-    quantity: number;
-    size: string;
-    choice?: string;
-    status: string;
-  }[];
+  items: OrderItem[];
+  paymentStatus: string;
+  paymentMethod : string;
 };
 
 export default function Page() {
-  useAuthGuard(["ADMIN","WAITER","KITCHEN"]);
+  useAuthGuard(["ADMIN"]);
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedOrder, setExpandedOrder] = useState<string | null>(null);
 
-  const fetchOrders = async () => {
-    setLoading(true);
-    const res = await fetch("/api/admin/orders");
-    const data = await res.json();
-    setOrders(data.orders || []);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    let mounted = true;
-
-    const load = async () => {
-      if (!mounted) return;
-      await fetchOrders();
-    };
-
-    load(); // initial fetch
-
-    const interval = setInterval(() => {
-      if (mounted) {
-        fetchOrders();
-      }
-    }, 5000);
-
-    return () => {
-      mounted = false;
-      clearInterval(interval);
-    };
+  /* ---------------- FETCH ORDERS ---------------- */
+  const fetchOrders = useCallback(async () => {
+    try {
+      const res = await fetch("/api/admin/orders");
+      const data = await res.json();
+      setOrders(data.orders || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const forceComplete = async (orderId: string) => {
-    await fetch("/api/admin/force-complete", {
+  /* ---------------- INITIAL LOAD ---------------- */
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  /* ---------------- REALTIME PUSHER ---------------- */
+  useEffect(() => {
+    const channel = pusherClient.subscribe("admin");
+
+    channel.bind("orders:new", fetchOrders);
+    channel.bind("orders:confirmed", fetchOrders);
+    channel.bind("orders:updated", fetchOrders);
+    channel.bind("orders:completed", fetchOrders);
+    channel.bind("item-status-updated", fetchOrders);
+
+    return () => {
+      pusherClient.unsubscribe("admin");
+    };
+  }, [fetchOrders]);
+
+  /* ---------------- MARK PAID FOR CASH ---------------- */
+  const markPaid = async (orderId: string) => {
+    await fetch("/api/admin/mark-paid", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ orderId }),
     });
-
+    toast.success("Order Marked As PAID");
     fetchOrders();
   };
+
 
   if (loading) {
     return <div className="p-6 text-accent">Loading orders…</div>;
@@ -75,24 +87,23 @@ export default function Page() {
         Admin – Orders Overview
       </h1>
 
-      <div className="space-y-3 border">
+      <div className="space-y-3">
         {orders.map(order => (
           <div
             key={order._id}
             className="border border-neutral-800 rounded"
           >
-            {/* ROW SUMMARY */}
-            <h1 className="text-accent font-medium">
-              Table {order.table}
-            </h1>
+            {/* SUMMARY */}
             <div className="grid grid-cols-5 gap-3 px-4 py-3 items-center">
-              <span className="text-xs text-gray-400 truncate">
-                #{order._id}
+              <span className="text-accent font-medium">
+                Table {order.table}
               </span>
 
               <span
                 className={`text-xs px-2 py-1 rounded w-fit ${order.status === "COMPLETED"
-                    ? "bg-green-600/20 text-green-400"
+                  ? "bg-green-600/20 text-green-400"
+                  : order.status === "ACTIVE"
+                    ? "bg-blue-600/20 text-blue-400"
                     : "bg-yellow-500/20 text-yellow-400"
                   }`}
               >
@@ -120,27 +131,28 @@ export default function Page() {
                   {expandedOrder === order._id ? "Hide" : "View"}
                 </Button>
 
-                {order.status !== "COMPLETED" && (
+                {order.paymentStatus === "UNPAID" && (
                   <Button
                     size="sm"
-                    variant="destructive"
-                    onClick={() => forceComplete(order._id)}
+                    className="bg-green-600"
+                    onClick={() => markPaid(order._id)}
                   >
-                    Force Close
+                    Mark as Paid (Cash)
                   </Button>
                 )}
+
               </div>
             </div>
 
-            {/* READ-ONLY ITEM DETAILS */}
+            {/* ITEMS (READ ONLY) */}
             {expandedOrder === order._id && (
               <div className="bg-neutral-900 border-t border-neutral-800 px-4 py-3 space-y-2">
                 {order.items.map((item, i) => (
                   <div
                     key={i}
-                    className="flex justify-between text-sm text-accent"
+                    className="flex justify-between text-sm"
                   >
-                    <span>
+                    <span className="text-accent">
                       {item.name} ({item.size})
                       {item.choice && ` • ${item.choice}`} × {item.quantity}
                     </span>

@@ -69,6 +69,14 @@ export async function POST(req: Request) {
         itemId: itemId.toString(), // ✅ FIX
         table: order.table,
       });
+
+      await pusher.trigger("admin", "item-status-updated", {
+        orderId,
+        itemId,
+        status,
+        table: order.table,
+      });
+
     }
 
     if (status === "PREPARING" && order) {
@@ -77,6 +85,13 @@ export async function POST(req: Request) {
         status: "PREPARING",
         table: order.table,
       });
+      await pusher.trigger("admin", "item-status-updated", {
+        orderId,
+        itemId,
+        status,
+        table: order.table,
+      });
+
     }
 
     return NextResponse.json({ success: true });
